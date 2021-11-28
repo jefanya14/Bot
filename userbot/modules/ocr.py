@@ -29,7 +29,6 @@ async def ocr_space_file(filename,
                     Defaults to 'en'.
     :return: Result in JSON format.
     """
-
     payload = {
         "isOverlayRequired": overlay,
         "apikey": api_key,

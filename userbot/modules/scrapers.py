@@ -489,7 +489,6 @@ async def lang(value):
 @register(outgoing=True, pattern=r"^\.yt (\d*) *(.*)")
 async def yt_search(event):
     """For .yt command, do a YouTube search from Telegram."""
-
     if event.pattern_match.group(1) != "":
         counter = int(event.pattern_match.group(1))
         if counter > 10:
