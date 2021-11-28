@@ -61,7 +61,7 @@ def register(**args):
                 # Ignore edits that take place in channels.
                 return
             if not LOGSPAMMER:
-                check.chat_id
+                pass
             else:
                 pass
 
