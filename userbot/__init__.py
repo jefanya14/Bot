@@ -40,7 +40,7 @@ if version_info[0] < 3 or version_info[1] < 8:
 
 # Check if the config was edited by using the already used variable.
 # Basically, its the 'virginity check' for the config file ;)
-CONFIG_CHECK = os.environ.get("", None)
+CONFIG_CHECK = os.environ.get("")
 
 if CONFIG_CHECK:
     LOGS.info(
@@ -49,41 +49,41 @@ if CONFIG_CHECK:
     exit(1)
 
 # Telegram App KEY and HASH
-API_KEY = os.environ.get("API_KEY", None)
-API_HASH = os.environ.get("API_HASH", None)
+API_KEY = os.environ.get("API_KEY")
+API_HASH = os.environ.get("API_HASH")
 
 # Userbot Session String
-STRING_SESSION = os.environ.get("STRING_SESSION", None)
+STRING_SESSION = os.environ.get("STRING_SESSION")
 
 # Deezloader
-DEEZER_ARL_TOKEN = os.environ.get("DEEZER_ARL_TOKEN", None)
+DEEZER_ARL_TOKEN = os.environ.get("DEEZER_ARL_TOKEN")
 
 # Logging channel/group ID configuration.
-BOTLOG_CHATID = int(os.environ.get("BOTLOG_CHATID", None))
+BOTLOG_CHATID = int(os.environ.get("BOTLOG_CHATID"))
 
 # Github Credentials for updater and Gitupload.
-GIT_REPO_NAME = os.environ.get("GIT_REPO_NAME", None)
-GITHUB_ACCESS_TOKEN = os.environ.get("GITHUB_ACCESS_TOKEN", None)
+GIT_REPO_NAME = os.environ.get("GIT_REPO_NAME")
+GITHUB_ACCESS_TOKEN = os.environ.get("GITHUB_ACCESS_TOKEN")
 
 # Userbot logging feature switch.
 BOTLOG = sb(os.environ.get("BOTLOG", "False"))
 LOGSPAMMER = sb(os.environ.get("LOGSPAMMER", "False"))
 
 # Genius lyrics get this value from https://genius.com/developers both has same values
-GENIUS_API_TOKEN = os.environ.get("GENIUS", None)
+GENIUS_API_TOKEN = os.environ.get("GENIUS")
 # Genius lyrics get this value from https://genius.com/developers both has same values
-GENIUS = os.environ.get("GENIUS_API_TOKEN", None)
+GENIUS = os.environ.get("GENIUS_API_TOKEN")
 
 # Quotes API Token
-QUOTES_API_TOKEN = os.environ.get("QUOTES_API_TOKEN", None)
+QUOTES_API_TOKEN = os.environ.get("QUOTES_API_TOKEN")
 
 # Bleep Blop, this is a bot ;)
 PM_AUTO_BAN = sb(os.environ.get("PM_AUTO_BAN", "False"))
 
 # Heroku Credentials for updater.
 HEROKU_MEMEZ = sb(os.environ.get("HEROKU_MEMEZ", "False"))
-HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME", None)
-HEROKU_API_KEY = os.environ.get("HEROKU_API_KEY", None)
+HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME")
+HEROKU_API_KEY = os.environ.get("HEROKU_API_KEY")
 
 # Custom (forked) repo URL for updater.
 UPSTREAM_REPO_URL = os.environ.get("UPSTREAM_REPO_URL",
@@ -94,7 +94,7 @@ UPSTREAM_REPO_BRANCH = os.environ.get("UPSTREAM_REPO_BRANCH", "sql-extended")
 CONSOLE_LOGGER_VERBOSE = sb(os.environ.get("CONSOLE_LOGGER_VERBOSE", "False"))
 
 # Default .alive name
-ALIVE_NAME = os.environ.get("ALIVE_NAME", None)
+ALIVE_NAME = os.environ.get("ALIVE_NAME")
 
 # Logo
 LOGO = os.environ.get(
@@ -102,46 +102,46 @@ LOGO = os.environ.get(
     "https://github.com/jefanya14/Bot/blob/sql-extended/1632660286-picsay.png")
 
 # Google Drive Module
-G_DRIVE_CLIENT_ID = os.environ.get("G_DRIVE_CLIENT_ID", None)
-G_DRIVE_CLIENT_SECRET = os.environ.get("G_DRIVE_CLIENT_SECRET", None)
-G_DRIVE_AUTH_TOKEN_DATA = os.environ.get("G_DRIVE_AUTH_TOKEN_DATA", None)
-G_DRIVE_FOLDER_ID = os.environ.get("G_DRIVE_FOLDER_ID", None)
-G_DRIVE_INDEX_URL = os.environ.get("G_DRIVE_INDEX_URL", None)
+G_DRIVE_CLIENT_ID = os.environ.get("G_DRIVE_CLIENT_ID")
+G_DRIVE_CLIENT_SECRET = os.environ.get("G_DRIVE_CLIENT_SECRET")
+G_DRIVE_AUTH_TOKEN_DATA = os.environ.get("G_DRIVE_AUTH_TOKEN_DATA")
+G_DRIVE_FOLDER_ID = os.environ.get("G_DRIVE_FOLDER_ID")
+G_DRIVE_INDEX_URL = os.environ.get("G_DRIVE_INDEX_URL")
 
 # Zipfile module
 ZIP_DOWNLOAD_DIRECTORY = os.environ.get("ZIP_DOWNLOAD_DIRECTORY", "./zips")
 
 # Send .chatid in any group with all your administration bots (added)
-G_BAN_LOGGER_GROUP = os.environ.get("G_BAN_LOGGER_GROUP", None)
+G_BAN_LOGGER_GROUP = os.environ.get("G_BAN_LOGGER_GROUP")
 if G_BAN_LOGGER_GROUP:
     G_BAN_LOGGER_GROUP = int(G_BAN_LOGGER_GROUP)
 
 # SQL Database URI
-DB_URI = os.environ.get("DATABASE_URL", None)
+DB_URI = os.environ.get("DATABASE_URL")
 
 # OCR API key
-OCR_SPACE_API_KEY = os.environ.get("OCR_SPACE_API_KEY", None)
+OCR_SPACE_API_KEY = os.environ.get("OCR_SPACE_API_KEY")
 
 # remove.bg API key
-REM_BG_API_KEY = os.environ.get("REM_BG_API_KEY", None)
+REM_BG_API_KEY = os.environ.get("REM_BG_API_KEY")
 
 # Chrome Driver and Headless Google Chrome Binaries
-CHROME_DRIVER = os.environ.get("CHROME_DRIVER", None)
-GOOGLE_CHROME_BIN = os.environ.get("GOOGLE_CHROME_BIN", None)
+CHROME_DRIVER = os.environ.get("CHROME_DRIVER")
+GOOGLE_CHROME_BIN = os.environ.get("GOOGLE_CHROME_BIN")
 
 # OpenWeatherMap API Key
-OPEN_WEATHER_MAP_APPID = os.environ.get("OPEN_WEATHER_MAP_APPID", None)
-WEATHER_DEFCITY = os.environ.get("WEATHER_DEFCITY", None)
+OPEN_WEATHER_MAP_APPID = os.environ.get("OPEN_WEATHER_MAP_APPID")
+WEATHER_DEFCITY = os.environ.get("WEATHER_DEFCITY")
 
 # Lydia API
-LYDIA_API_KEY = os.environ.get("LYDIA_API_KEY", None)
+LYDIA_API_KEY = os.environ.get("LYDIA_API_KEY")
 
 # Anti Spambot Config
 ANTI_SPAMBOT = sb(os.environ.get("ANTI_SPAMBOT", "False"))
 ANTI_SPAMBOT_SHOUT = sb(os.environ.get("ANTI_SPAMBOT_SHOUT", "False"))
 
 # Default .alive name
-ALIVE_NAME = os.environ.get("ALIVE_NAME", None)
+ALIVE_NAME = os.environ.get("ALIVE_NAME")
 
 # Time & Date - Country and Time Zone
 COUNTRY = str(os.environ.get("COUNTRY", ""))
@@ -151,16 +151,16 @@ TZ_NUMBER = int(os.environ.get("TZ_NUMBER", 1))
 CLEAN_WELCOME = sb(os.environ.get("CLEAN_WELCOME", "True"))
 
 # Screenshot web access key
-SS_LAYER_KEY = os.environ.get("SS_LAYER_KEY", None)
+SS_LAYER_KEY = os.environ.get("SS_LAYER_KEY")
 
 # Last.fm Module
-BIO_PREFIX = os.environ.get("BIO_PREFIX", None)
-DEFAULT_BIO = os.environ.get("DEFAULT_BIO", None)
+BIO_PREFIX = os.environ.get("BIO_PREFIX")
+DEFAULT_BIO = os.environ.get("DEFAULT_BIO")
 
-LASTFM_API = os.environ.get("LASTFM_API", None)
-LASTFM_SECRET = os.environ.get("LASTFM_SECRET", None)
-LASTFM_USERNAME = os.environ.get("LASTFM_USERNAME", None)
-LASTFM_PASSWORD_PLAIN = os.environ.get("LASTFM_PASSWORD", None)
+LASTFM_API = os.environ.get("LASTFM_API")
+LASTFM_SECRET = os.environ.get("LASTFM_SECRET")
+LASTFM_USERNAME = os.environ.get("LASTFM_USERNAME")
+LASTFM_PASSWORD_PLAIN = os.environ.get("LASTFM_PASSWORD")
 LASTFM_PASS = md5(LASTFM_PASSWORD_PLAIN)
 if LASTFM_API and LASTFM_SECRET and LASTFM_USERNAME and LASTFM_PASS:
     lastfm = LastFMNetwork(
@@ -173,14 +173,14 @@ else:
     lastfm = None
 
 # bit.ly module
-BITLY_TOKEN = os.environ.get("BITLY_TOKEN", None)
+BITLY_TOKEN = os.environ.get("BITLY_TOKEN")
 
 # Google Drive Module
-G_DRIVE_DATA = os.environ.get("G_DRIVE_DATA", None)
-G_DRIVE_CLIENT_ID = os.environ.get("G_DRIVE_CLIENT_ID", None)
-G_DRIVE_CLIENT_SECRET = os.environ.get("G_DRIVE_CLIENT_SECRET", None)
-G_DRIVE_AUTH_TOKEN_DATA = os.environ.get("G_DRIVE_AUTH_TOKEN_DATA", None)
-GDRIVE_FOLDER_ID = os.environ.get("GDRIVE_FOLDER_ID", None)
+G_DRIVE_DATA = os.environ.get("G_DRIVE_DATA")
+G_DRIVE_CLIENT_ID = os.environ.get("G_DRIVE_CLIENT_ID")
+G_DRIVE_CLIENT_SECRET = os.environ.get("G_DRIVE_CLIENT_SECRET")
+G_DRIVE_AUTH_TOKEN_DATA = os.environ.get("G_DRIVE_AUTH_TOKEN_DATA")
+GDRIVE_FOLDER_ID = os.environ.get("GDRIVE_FOLDER_ID")
 TEMP_DOWNLOAD_DIRECTORY = os.environ.get("TEMP_DOWNLOAD_DIRECTORY",
                                          "./downloads/")
 
@@ -188,10 +188,10 @@ TEMP_DOWNLOAD_DIRECTORY = os.environ.get("TEMP_DOWNLOAD_DIRECTORY",
 TERM_ALIAS = os.environ.get("TERM_ALIAS", "OUBnew")
 
 # JustWatch Country
-WATCH_COUNTRY = os.environ.get("WATCH_COUNTRY", None)
+WATCH_COUNTRY = os.environ.get("WATCH_COUNTRY")
 
 # Uptobox
-USR_TOKEN = os.environ.get("USR_TOKEN_UPTOBOX", None)
+USR_TOKEN = os.environ.get("USR_TOKEN_UPTOBOX")
 
 # 'bot' variable
 if STRING_SESSION:
