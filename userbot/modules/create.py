@@ -43,7 +43,7 @@ async def telegraphs(grop):
                 functions.channels.CreateChannelRequest(  # pylint:disable=E0602
                     title=group_name,
                     about="Welcome to this Channel",
-                    megagroup=False if type_of_group == "c" else True,
+                    megagroup=not type_of_group == "c",
                 ))
             created_chat_id = r.chats[0].id
             result = await grop.client(
