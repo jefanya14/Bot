@@ -75,7 +75,7 @@ def register(**args):
                 return
 
             try:
-                await func(check)
+                await new_func(check)
 
             # Thanks to @kandnub for this HACK.
             # Raise StopPropagation to Raise StopPropagation
@@ -154,6 +154,9 @@ def register(**args):
                     remove("error.log")
             else:
                 pass
+
+        async def new_func(check):
+            return await func(check)
 
         if not disable_edited:
             bot.add_event_handler(wrapper, events.MessageEdited(**args))
