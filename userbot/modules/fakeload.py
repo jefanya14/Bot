@@ -3,6 +3,7 @@ import asyncio
 import re
 import time
 from time import sleep
+
 from userbot import CMD_HELP, ZALG_LIST
 from userbot.events import register
 
@@ -319,9 +320,5 @@ async def typewriter(typew):
     # I did it for two hours :D just ctrl+c - crtl+v
 
 
-CMD_HELP.update(
-    {
-        "fakeload": ".fl\
-        \nUsage: Tokek Goreng."
-    }
-)
+CMD_HELP.update({"fakeload": ".fl\
+        \nUsage: Tokek Goreng."})

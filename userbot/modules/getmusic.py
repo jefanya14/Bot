@@ -1,13 +1,15 @@
 # AnggaR96s
 
-from telethon import events
-import subprocess
-from telethon.errors.rpcerrorlist import YouBlockedUserError
 import asyncio
-from userbot.events import register
-from userbot import bot, CMD_HELP
 import glob
 import os
+import subprocess
+
+from telethon import events
+from telethon.errors.rpcerrorlist import YouBlockedUserError
+
+from userbot import CMD_HELP, bot
+from userbot.events import register
 
 os.system("rm -rf *.mp3")
 
@@ -51,11 +53,11 @@ async def _(event):
     await event.edit("```Getting Your Music```")
     async with bot.conversation(chat) as conv:
         await asyncio.sleep(2)
-        await event.edit("`Downloading music taking some times,  Stay Tuned.....`")
+        await event.edit(
+            "`Downloading music taking some times,  Stay Tuned.....`")
         try:
             response = conv.wait_event(
-                events.NewMessage(incoming=True, from_users=752979930)
-            )
+                events.NewMessage(incoming=True, from_users=752979930))
             await bot.send_message(chat, link)
             respond = await response
             await bot.send_read_acknowledge(conv.chat_id)
@@ -69,11 +71,10 @@ async def _(event):
         await bot.send_read_acknowledge(event.chat_id)
 
 
-CMD_HELP.update(
-    {
-        "song": ">`.song` **atrist title**"
-        "\nUsage: Finding and uploading song.\n"
-        ">`.smd` **<song tittle>**"
-        "\nUsage: **Download music from spotify**"
-    }
-)
+CMD_HELP.update({
+    "song":
+    ">`.song` **atrist title**"
+    "\nUsage: Finding and uploading song.\n"
+    ">`.smd` **<song tittle>**"
+    "\nUsage: **Download music from spotify**"
+})

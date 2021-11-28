@@ -1,10 +1,10 @@
 # Inspired by Saitama Bot, credits - @kirito6969, @PhycoNinja13b
 # Thx to @DeletedUser420
 
-
-from userbot.events import register
-from userbot import bot, CMD_HELP
 from telethon import events
+
+from userbot import CMD_HELP, bot
+from userbot.events import register
 
 # from uniborg.util import admin_cmd
 
@@ -170,7 +170,8 @@ async def mediv(medievalx):
         get = await medievalx.get_reply_message()
         args = get.text
     if not args:
-        await medievalx.edit("`What I am Supposed to medieval bold for U Dumb`")
+        await medievalx.edit("`What I am Supposed to medieval bold for U Dumb`"
+                             )
         return
     string = "".join(args).lower()
     for normiecharacter in string:
@@ -218,7 +219,8 @@ async def doublex(doublestrucktx):
         get = await doublestrucktx.get_reply_message()
         args = get.text
     if not args:
-        await doublestrucktx.edit("`What I am Supposed to double struck for U Dumb`")
+        await doublestrucktx.edit(
+            "`What I am Supposed to double struck for U Dumb`")
         return
     string = "".join(args).lower()
     for normiecharacter in string:
@@ -266,12 +268,14 @@ async def cursive2(cursivebolded):
         get = await cursivebolded.get_reply_message()
         args = get.text
     if not args:
-        await cursivebolded.edit("`What I am Supposed to cursive bold for U Dumb`")
+        await cursivebolded.edit(
+            "`What I am Supposed to cursive bold for U Dumb`")
         return
     string = "".join(args).lower()
     for normiecharacter in string:
         if normiecharacter in normiefont:
-            cursiveboldcharacter = cursiveboldx[normiefont.index(normiecharacter)]
+            cursiveboldcharacter = cursiveboldx[normiefont.index(
+                normiecharacter)]
             string = string.replace(normiecharacter, cursiveboldcharacter)
     await cursivebolded.edit(string)
 
@@ -372,9 +376,9 @@ async def xcursive(cursivelite):
     await cursivelite.edit(string)
 
 
-CMD_HELP.update(
-    {
-        "textx": "Usage: .font <text>\
+CMD_HELP.update({
+    "textx":
+    "Usage: .font <text>\
 \n`.weeb` Weebify a text\
 \n\n`.cursive` make text cursive.\
 \n\n`.cursivebold` make text cursive bold.\
@@ -382,5 +386,4 @@ CMD_HELP.update(
 \n\n`.medievalbold` make text medival bold.\
 \n\n`.doublestruck` make text doublestruck.\
 \n\n`.bold` make text bold."
-    }
-)
+})

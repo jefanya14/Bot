@@ -5,14 +5,15 @@
 """ Userbot module containing userid, chatid and log commands"""
 
 from asyncio import sleep
-from userbot import CMD_HELP, BOTLOG, BOTLOG_CHATID, bot
+
+from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot
 from userbot.events import register
 from userbot.modules.admin import get_user_from_event
 
 
 @register(outgoing=True, pattern="^.userid$")
 async def useridgetter(target):
-    """ For .userid command, returns the ID of the target user. """
+    """For .userid command, returns the ID of the target user."""
     message = await target.get_reply_message()
     if message:
         if not message.forward:
@@ -27,33 +28,33 @@ async def useridgetter(target):
                 name = "@" + message.forward.sender.username
             else:
                 name = "*" + message.forward.sender.first_name + "*"
-        await target.edit("**Name:** {} \n**User ID:** `{}`".format(name, user_id))
+        await target.edit("**Name:** {} \n**User ID:** `{}`".format(
+            name, user_id))
 
 
 @register(outgoing=True, pattern="^.link(?: |$)(.*)")
 async def permalink(mention):
-    """ For .link command, generates a link to the user's PM with a custom text. """
+    """For .link command, generates a link to the user's PM with a custom text."""
     user, custom = await get_user_from_event(mention)
     if not user:
         return
     if custom:
         await mention.edit(f"[{custom}](tg://user?id={user.id})")
     else:
-        tag = (
-            user.first_name.replace("\u2060", "") if user.first_name else user.username
-        )
+        tag = (user.first_name.replace("\u2060", "")
+               if user.first_name else user.username)
         await mention.edit(f"[{tag}](tg://user?id={user.id})")
 
 
 @register(outgoing=True, pattern="^.chatid$")
 async def chatidgetter(chat):
-    """ For .chatid, returns the ID of the chat you are in at that moment. """
+    """For .chatid, returns the ID of the chat you are in at that moment."""
     await chat.edit("Chat ID: `" + str(chat.chat_id) + "`")
 
 
 @register(outgoing=True, pattern=r"^.log(?: |$)([\s\S]*)")
 async def log(log_text):
-    """ For .log command, forwards a message or the command argument to the bot logs group """
+    """For .log command, forwards a message or the command argument to the bot logs group"""
     if BOTLOG:
         if log_text.reply_to_msg_id:
             reply_msg = await log_text.get_reply_message()
@@ -74,14 +75,14 @@ async def log(log_text):
 
 @register(outgoing=True, pattern="^.kickme$")
 async def kickme(leave):
-    """ Basically it's .kickme command """
+    """Basically it's .kickme command"""
     await leave.edit("Nope, no, no, I go away")
     await leave.client.kick_participant(leave.chat_id, "me")
 
 
 @register(outgoing=True, pattern="^.unmutechat$")
 async def unmute_chat(unm_e):
-    """ For .unmutechat command, unmute a muted chat. """
+    """For .unmutechat command, unmute a muted chat."""
     try:
         from userbot.modules.sql_helper.keep_read_sql import unkread
     except AttributeError:
@@ -95,7 +96,7 @@ async def unmute_chat(unm_e):
 
 @register(outgoing=True, pattern="^.mutechat$")
 async def mute_chat(mute_e):
-    """ For .mutechat command, mute any chat. """
+    """For .mutechat command, mute any chat."""
     try:
         from userbot.modules.sql_helper.keep_read_sql import kread
     except AttributeError:
@@ -108,13 +109,13 @@ async def mute_chat(mute_e):
     await mute_e.delete()
     if BOTLOG:
         await mute_e.client.send_message(
-            BOTLOG_CHATID, str(mute_e.chat_id) + " was silenced."
-        )
+            BOTLOG_CHATID,
+            str(mute_e.chat_id) + " was silenced.")
 
 
 @register(incoming=True, disable_errors=True)
 async def keep_read(message):
-    """ The mute logic. """
+    """The mute logic."""
     try:
         from userbot.modules.sql_helper.keep_read_sql import is_kread
     except AttributeError:
@@ -140,7 +141,7 @@ async def sedNinja(event):
 
 @register(outgoing=True, pattern="^.regexninja (on|off)$")
 async def sedNinjaToggle(event):
-    """ Enables or disables the regex ninja module. """
+    """Enables or disables the regex ninja module."""
     global regexNinja
     if event.pattern_match.group(1) == "on":
         regexNinja = True
@@ -154,9 +155,9 @@ async def sedNinjaToggle(event):
         await event.delete()
 
 
-CMD_HELP.update(
-    {
-        "chat": ".chatid\
+CMD_HELP.update({
+    "chat":
+    ".chatid\
 \nUsage: Fetches the current chat's ID\
 \n\n.userid\
 \nUsage: Fetches the ID of the user in reply, if its a forwarded message, finds the ID for the source.\
@@ -173,5 +174,4 @@ CMD_HELP.update(
 \n\n.regexninja on/off\
 \nUsage: Globally enable/disables the regex ninja module.\
 \nRegex Ninja module helps to delete the regex bot's triggering messages."
-    }
-)
+})

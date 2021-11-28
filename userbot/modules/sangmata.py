@@ -1,11 +1,14 @@
 # Port to userbot by @KeselekPermen69
 
+from asyncio.exceptions import TimeoutError
+
+import requests
 from telethon import events
 from telethon.errors.rpcerrorlist import YouBlockedUserError
-from asyncio.exceptions import TimeoutError
+
+from userbot import CMD_HELP, bot
 from userbot.events import register
-import requests
-from userbot import bot, CMD_HELP
+
 
 @register(outgoing=True, pattern=r"^\.sg(?: |$)(.*)")
 async def lastname(steal):
@@ -29,28 +32,23 @@ async def lastname(steal):
                 r = await conv.get_response()
                 response = await conv.get_response()
             except YouBlockedUserError:
-                await steal.reply("`Please unblock @sangmatainfo_bot and try again`")
+                await steal.reply(
+                    "`Please unblock @sangmatainfo_bot and try again`")
                 return
             if response.text.startswith("No records found"):
                 await steal.edit("`No records found for this user`")
-                await steal.client.delete_messages(
-                    conv.chat_id, [msg.id, r.id, response.id]
-                )
+                await steal.client.delete_messages(conv.chat_id,
+                                                   [msg.id, r.id, response.id])
                 return
             else:
                 respond = await conv.get_response()
                 await steal.edit(f"{response.message}")
             await steal.client.delete_messages(
-                conv.chat_id, [msg.id, r.id, response.id, respond.id]
-            )
+                conv.chat_id, [msg.id, r.id, response.id, respond.id])
     except TimeoutError:
-        return await steal.edit("`Error: `@SangMataInfo_bot` is not responding!.`")
+        return await steal.edit(
+            "`Error: `@SangMataInfo_bot` is not responding!.`")
 
 
-
-CMD_HELP.update(
-    {
-        "sangmata": ".sg \
-          \nUsage: View user history.\n"
-    }
-)
+CMD_HELP.update({"sangmata": ".sg \
+          \nUsage: View user history.\n"})

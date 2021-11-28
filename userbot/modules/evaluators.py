@@ -8,13 +8,14 @@
 import asyncio
 from os import remove
 from sys import executable
-from userbot import CMD_HELP, BOTLOG, BOTLOG_CHATID, TERM_ALIAS
+
+from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, TERM_ALIAS
 from userbot.events import register
 
 
 @register(outgoing=True, pattern="^.eval(?: |$)(.*)")
 async def evaluate(query):
-    """ For .eval command, evaluates the given Python expression. """
+    """For .eval command, evaluates the given Python expression."""
     if query.is_channel and not query.is_group:
         await query.edit("`Eval isn't permitted on channels`")
         return
@@ -45,33 +46,30 @@ async def evaluate(query):
                     )
                     remove("output.txt")
                     return
-                await query.edit(
-                    "**Query: **\n`"
-                    f"{expression}"
-                    "`\n**Result: **\n`"
-                    f"{evaluation}"
-                    "`"
-                )
+                await query.edit("**Query: **\n`"
+                                 f"{expression}"
+                                 "`\n**Result: **\n`"
+                                 f"{evaluation}"
+                                 "`")
         else:
-            await query.edit(
-                "**Query: **\n`"
-                f"{expression}"
-                "`\n**Result: **\n`No Result Returned/False`"
-            )
+            await query.edit("**Query: **\n`"
+                             f"{expression}"
+                             "`\n**Result: **\n`No Result Returned/False`")
     except Exception as err:
-        await query.edit(
-            "**Query: **\n`" f"{expression}" "`\n**Exception: **\n" f"`{err}`"
-        )
+        await query.edit("**Query: **\n`"
+                         f"{expression}"
+                         "`\n**Exception: **\n"
+                         f"`{err}`")
 
     if BOTLOG:
         await query.client.send_message(
-            BOTLOG_CHATID, f"Eval query {expression} was executed successfully"
-        )
+            BOTLOG_CHATID,
+            f"Eval query {expression} was executed successfully")
 
 
 @register(outgoing=True, pattern=r"^.exec(?: |$)([\s\S]*)")
 async def run(run_q):
-    """ For .exec command, which executes the dynamically created program """
+    """For .exec command, which executes the dynamically created program"""
     code = run_q.pattern_match.group(1)
 
     if run_q.is_channel and not run_q.is_group:
@@ -79,10 +77,8 @@ async def run(run_q):
         return
 
     if not code:
-        await run_q.edit(
-            "``` At least a variable is required to \
-execute. Use .help exec for an example.```"
-        )
+        await run_q.edit("``` At least a variable is required to \
+execute. Use .help exec for an example.```")
         return
 
     if code in ("userbot.session", "config.env"):
@@ -93,9 +89,8 @@ execute. Use .help exec for an example.```"
         codepre = code
     else:
         clines = code.splitlines()
-        codepre = (
-            clines[0] + "\n" + clines[1] + "\n" + clines[2] + "\n" + clines[3] + "..."
-        )
+        codepre = (clines[0] + "\n" + clines[1] + "\n" + clines[2] + "\n" +
+                   clines[3] + "...")
 
     command = "".join(f"\n {l}" for l in code.split("\n.strip()"))
     process = await asyncio.create_subprocess_exec(
@@ -121,23 +116,25 @@ execute. Use .help exec for an example.```"
             )
             remove("output.txt")
             return
-        await run_q.edit(
-            "**Query: **\n`" f"{codepre}" "`\n**Result: **\n`" f"{result}" "`"
-        )
+        await run_q.edit("**Query: **\n`"
+                         f"{codepre}"
+                         "`\n**Result: **\n`"
+                         f"{result}"
+                         "`")
     else:
-        await run_q.edit(
-            "**Query: **\n`" f"{codepre}" "`\n**Result: **\n`No Result Returned/False`"
-        )
+        await run_q.edit("**Query: **\n`"
+                         f"{codepre}"
+                         "`\n**Result: **\n`No Result Returned/False`")
 
     if BOTLOG:
         await run_q.client.send_message(
-            BOTLOG_CHATID, "Exec query " + codepre + " was executed successfully"
-        )
+            BOTLOG_CHATID,
+            "Exec query " + codepre + " was executed successfully")
 
 
 @register(outgoing=True, pattern="^.term(?: |$)(.*)")
 async def terminal_runner(term):
-    """ For .term command, runs bash commands and scripts on your server. """
+    """For .term command, runs bash commands and scripts on your server."""
     curruser = TERM_ALIAS
     command = term.pattern_match.group(1)
     try:
@@ -152,14 +149,13 @@ async def terminal_runner(term):
         return
 
     if not command:
-        await term.edit(
-            "``` Give a command or use .help term for \
-            an example.```"
-        )
+        await term.edit("``` Give a command or use .help term for \
+            an example.```")
         return
 
     if command in ("userbot.session", "config.env", "env", "$", "$*", "echo"):
-        return await term.edit("`That's a dangerous operation! Not Permitted!`")
+        return await term.edit("`That's a dangerous operation! Not Permitted!`"
+                               )
 
     process = await asyncio.create_subprocess_exec(
         "bash",
@@ -191,12 +187,13 @@ async def terminal_runner(term):
 
     if BOTLOG:
         await term.client.send_message(
-            BOTLOG_CHATID, "Terminal Command " + command + " was executed sucessfully",
+            BOTLOG_CHATID,
+            "Terminal Command " + command + " was executed sucessfully",
         )
 
 
 CMD_HELP.update({"eval": ".eval 2 + 3\nUsage: Evalute mini-expressions."})
-CMD_HELP.update({"exec": ".exec print('hello')\nUsage: Execute small python scripts."})
 CMD_HELP.update(
-    {"term": ".term ls\nUsage: Run bash commands and scripts on your server."}
-)
+    {"exec": ".exec print('hello')\nUsage: Execute small python scripts."})
+CMD_HELP.update(
+    {"term": ".term ls\nUsage: Run bash commands and scripts on your server."})

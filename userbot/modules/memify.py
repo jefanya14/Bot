@@ -9,6 +9,7 @@ import textwrap
 from typing import Optional
 
 from PIL import Image, ImageDraw, ImageFont
+
 from userbot import CMD_HELP, LOGS, TEMP_DOWNLOAD_DIRECTORY
 from userbot.events import register
 
@@ -69,7 +70,7 @@ async def draw_meme_text(image_path, text):
         upper_text, lower_text = text.split(";")
     else:
         upper_text = text
-        lower_text = ''
+        lower_text = ""
     draw = ImageDraw.Draw(img)
     current_h, pad = 10, 5
 
@@ -77,64 +78,93 @@ async def draw_meme_text(image_path, text):
         for u_text in textwrap.wrap(upper_text, width=15):
             u_width, u_height = draw.textsize(u_text, font=m_font)
 
-            draw.text(xy=(((i_width - u_width) / 2) - 1,
-                          int((current_h / 640) * i_width)),
-                      text=u_text,
-                      font=m_font,
-                      fill=(0, 0, 0))
-            draw.text(xy=(((i_width - u_width) / 2) + 1,
-                          int((current_h / 640) * i_width)),
-                      text=u_text,
-                      font=m_font,
-                      fill=(0, 0, 0))
-            draw.text(xy=((i_width - u_width) / 2,
-                          int(((current_h / 640) * i_width)) - 1),
-                      text=u_text,
-                      font=m_font,
-                      fill=(0, 0, 0))
-            draw.text(xy=(((i_width - u_width) / 2),
-                          int(((current_h / 640) * i_width)) + 1),
-                      text=u_text,
-                      font=m_font,
-                      fill=(0, 0, 0))
+            draw.text(
+                xy=(((i_width - u_width) / 2) - 1,
+                    int((current_h / 640) * i_width)),
+                text=u_text,
+                font=m_font,
+                fill=(0, 0, 0),
+            )
+            draw.text(
+                xy=(((i_width - u_width) / 2) + 1,
+                    int((current_h / 640) * i_width)),
+                text=u_text,
+                font=m_font,
+                fill=(0, 0, 0),
+            )
+            draw.text(
+                xy=((i_width - u_width) / 2, int(
+                    ((current_h / 640) * i_width)) - 1),
+                text=u_text,
+                font=m_font,
+                fill=(0, 0, 0),
+            )
+            draw.text(
+                xy=(((i_width - u_width) / 2),
+                    int(((current_h / 640) * i_width)) + 1),
+                text=u_text,
+                font=m_font,
+                fill=(0, 0, 0),
+            )
 
-            draw.text(xy=((i_width - u_width) / 2,
-                          int((current_h / 640) * i_width)),
-                      text=u_text,
-                      font=m_font,
-                      fill=(255, 255, 255))
+            draw.text(
+                xy=((i_width - u_width) / 2, int((current_h / 640) * i_width)),
+                text=u_text,
+                font=m_font,
+                fill=(255, 255, 255),
+            )
             current_h += u_height + pad
 
     if lower_text:
         for l_text in textwrap.wrap(lower_text, width=15):
             u_width, u_height = draw.textsize(l_text, font=m_font)
 
-            draw.text(xy=(((i_width - u_width) / 2) - 1,
-                          i_height - u_height - int((20 / 640) * i_width)),
-                      text=l_text,
-                      font=m_font,
-                      fill=(0, 0, 0))
-            draw.text(xy=(((i_width - u_width) / 2) + 1,
-                          i_height - u_height - int((20 / 640) * i_width)),
-                      text=l_text,
-                      font=m_font,
-                      fill=(0, 0, 0))
-            draw.text(xy=((i_width - u_width) / 2, (i_height - u_height - int(
-                (20 / 640) * i_width)) - 1),
-                      text=l_text,
-                      font=m_font,
-                      fill=(0, 0, 0))
-            draw.text(xy=((i_width - u_width) / 2, (i_height - u_height - int(
-                (20 / 640) * i_width)) + 1),
-                      text=l_text,
-                      font=m_font,
-                      fill=(0, 0, 0))
+            draw.text(
+                xy=(
+                    ((i_width - u_width) / 2) - 1,
+                    i_height - u_height - int((20 / 640) * i_width),
+                ),
+                text=l_text,
+                font=m_font,
+                fill=(0, 0, 0),
+            )
+            draw.text(
+                xy=(
+                    ((i_width - u_width) / 2) + 1,
+                    i_height - u_height - int((20 / 640) * i_width),
+                ),
+                text=l_text,
+                font=m_font,
+                fill=(0, 0, 0),
+            )
+            draw.text(
+                xy=(
+                    (i_width - u_width) / 2,
+                    (i_height - u_height - int((20 / 640) * i_width)) - 1,
+                ),
+                text=l_text,
+                font=m_font,
+                fill=(0, 0, 0),
+            )
+            draw.text(
+                xy=(
+                    (i_width - u_width) / 2,
+                    (i_height - u_height - int((20 / 640) * i_width)) + 1,
+                ),
+                text=l_text,
+                font=m_font,
+                fill=(0, 0, 0),
+            )
 
-            draw.text(xy=((i_width - u_width) / 2, i_height - u_height - int(
-                (20 / 640) * i_width)),
-                      text=l_text,
-                      font=m_font,
-                      fill=(255, 255, 255))
+            draw.text(
+                xy=(
+                    (i_width - u_width) / 2,
+                    i_height - u_height - int((20 / 640) * i_width),
+                ),
+                text=l_text,
+                font=m_font,
+                fill=(255, 255, 255),
+            )
             current_h += u_height + pad
 
     image_name = "memify.webp"
@@ -144,20 +174,23 @@ async def draw_meme_text(image_path, text):
 
 
 async def runcmd(cmd: str) -> tuple[str, str, int, int]:
-    """ run command in terminal """
+    """run command in terminal"""
     args = shlex.split(cmd)
     process = await asyncio.create_subprocess_exec(
         *args, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE)
     stdout, stderr = await process.communicate()
-    return (stdout.decode('utf-8', 'replace').strip(),
-            stderr.decode('utf-8',
-                          'replace').strip(), process.returncode, process.pid)
+    return (
+        stdout.decode("utf-8", "replace").strip(),
+        stderr.decode("utf-8", "replace").strip(),
+        process.returncode,
+        process.pid,
+    )
 
 
 async def take_screen_shot(video_file: str,
                            duration: int,
-                           path: str = '') -> Optional[str]:
-    """ take a screenshot """
+                           path: str = "") -> Optional[str]:
+    """take a screenshot"""
     ttl = duration // 2
     thumb_image_path = path or os.path.join(
         TEMP_DOWNLOAD_DIRECTORY, f"{os.path.basename(video_file)}.jpg")

@@ -2,13 +2,7 @@
   "name": "Jefanya Userbot",
   "description": "Untuk Kerjaan.",
   "logo": "https://telegra.ph/file/60e950dde25f7de86bcec.jpg",
-  "keywords": [
-    "telegram",
-    "userbot",
-    "plugin",
-    "modular",
-    "productivity"
-  ],
+  "keywords": ["telegram", "userbot", "plugin", "modular", "productivity"],
   "repository": "https://github.com/jefanya14/Bot",
   "website": "https://telegra.ph/How-to-host-a-Telegram-Userbot-11-02",
   "success_url": "https://t.me/PPE_Support",
@@ -74,11 +68,11 @@
       "description": "Get your own APPID (API key)from https://api.openweathermap.org/data/2.5/weather",
       "required": false
     },
-	"G_BAN_LOGGER_GROUP": {
+    "G_BAN_LOGGER_GROUP": {
       "description": "Same as BOTLOG_CHATID. Put your group ID here to enable Gban features.",
       "required": false
     },
-	"TERM_ALIAS": {
+    "TERM_ALIAS": {
       "description": "Some unique name or else.",
       "required": true
     },
@@ -187,7 +181,7 @@
     },
     "GENIUS_API_TOKEN": {
       "description": "Get this value from https://genius.com/developers.",
-      "required": false 
+      "required": false
     },
     "QUOTES_API_TOKEN": {
       "description": "enhance chat to sticker like quotly. Get this API from http://antiddos.systems.",
@@ -196,7 +190,7 @@
     "TERM_ALIAS": {
       "description": "set alias name for term cmd",
       "required": false
-    },  	
+    },
     "BITLY_TOKEN": {
       "description": "Your Bit.ly API key, get it from 'https://bitly.com/a/sign_up'",
       "value": "YOUR TOKEN",
