@@ -622,12 +622,10 @@ class googleimagesdownload:
         chars = url_item_name.find(",g_1:")
         chars_end = url_item_name.find(":", chars + 6)
         if chars_end == -1:
-            updated_item_name = (url_item_name[chars + 5:]).replace(
-                "+", " ")
+            updated_item_name = (url_item_name[chars + 5:]).replace("+", " ")
         else:
-            updated_item_name = (url_item_name[chars +
-                                               5:chars_end]).replace(
-                                                   "+", " ")
+            updated_item_name = (url_item_name[chars + 5:chars_end]).replace(
+                "+", " ")
 
         return url_item, updated_item_name, end_content
 
@@ -1458,8 +1456,7 @@ class googleimagesdownload:
                 paths_agg[i] = paths[i]
             if not arguments["silent_mode"]:
                 if arguments["print_paths"]:
-                    print(
-                        paths.encode("raw_unicode_escape").decode("utf-8"))
+                    print(paths.encode("raw_unicode_escape").decode("utf-8"))
             return paths_agg, errors
         # for input coming from CLI
         else:

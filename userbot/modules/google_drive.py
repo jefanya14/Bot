@@ -537,8 +537,8 @@ async def download_gdrive(gdrive, service, uri):
                       f"`Link   :` [{file_name}]({result[1]})\n"
                       "`Status :` **OK**\n\n")
         return reply
-    await gdrive.client.send_message(
-        BOTLOG_CHATID, "`Invalid answer type [Y/N] only...`")
+    await gdrive.client.send_message(BOTLOG_CHATID,
+                                     "`Invalid answer type [Y/N] only...`")
     return reply
 
 
@@ -1134,10 +1134,9 @@ async def set_upload_folder(gdrive):
                               "`Status` : **BAD** - No parent_Id is set.")
             return False
         else:
-            await gdrive.edit(
-                "`[FOLDER - SET]`\n\n"
-                "`Status` : **OK**"
-                " - `G_DRIVE_FOLDER_ID` empty, will use root.")
+            await gdrive.edit("`[FOLDER - SET]`\n\n"
+                              "`Status` : **OK**"
+                              " - `G_DRIVE_FOLDER_ID` empty, will use root.")
             return None
     inp = gdrive.pattern_match.group(2)
     if not inp:
