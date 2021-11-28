@@ -301,7 +301,8 @@ async def uptobox(request, url: str) -> str:
     """ Retrieve file informations """
     uri = f"{origin}/info?fileCodes={FILE_CODE}"
     await request.edit("**Retrieving file information...**")
-    async with aiohttp.ClientSession() as session, session.get(uri) as response:
+    async with aiohttp.ClientSession() as session, session.get(
+            uri) as response:
         result = json.loads(await response.text())
         data = result.get("data").get("list")[0]
         if "error" in data:
@@ -314,7 +315,8 @@ async def uptobox(request, url: str) -> str:
         file_size = naturalsize(data.get("file_size"))
     """ Get waiting token and direct download link """
     uri = f"{origin}?token={USR_TOKEN}&file_code={FILE_CODE}"
-    async with aiohttp.ClientSession() as session, session.get(uri) as response:
+    async with aiohttp.ClientSession() as session, session.get(
+            uri) as response:
         result = json.loads(await response.text())
         status = result.get("message")
         if status == "Waiting needed":
@@ -327,8 +329,7 @@ async def uptobox(request, url: str) -> str:
             await asyncio.sleep(wait + 60)
             uri += f"&waitingToken={waitingToken}"
             async with session.get(uri) as response:
-                await request.edit("**Generating direct download link...**"
-                                   )
+                await request.edit("**Generating direct download link...**")
                 result = json.loads(await response.text())
                 status = result.get("message")
                 if status == "Success":
