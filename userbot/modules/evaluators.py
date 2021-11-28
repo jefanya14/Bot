@@ -5,7 +5,6 @@
 #
 """ Userbot module for executing code and terminal commands from Telegram. """
 import ast
-
 import asyncio
 from os import remove
 from sys import executable
