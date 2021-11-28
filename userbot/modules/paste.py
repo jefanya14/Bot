@@ -12,7 +12,8 @@ from userbot.events import register
 from userbot.utils.pastebin import PasteBin
 
 
-@register(outgoing=True, pattern=r"^\.paste(?: (-d|-n|-h|-k|-s)|$)?(?: ([\s\S]+)|$)")
+@register(outgoing=True,
+          pattern=r"^\.paste(?: (-d|-n|-h|-k|-s)|$)?(?: ([\s\S]+)|$)")
 async def paste(pstl):
     """For .paste command, pastes the text directly to a pastebin."""
     service = pstl.pattern_match.group(1)
@@ -52,21 +53,18 @@ async def paste(pstl):
             await client.post()
 
         if client:
-            reply_text = (
-                "`Pasted successfully!`\n\n"
-                f"[URL]({client.link})\n"
-                f"[View RAW]({client.raw_link})"
-            )
+            reply_text = ("`Pasted successfully!`\n\n"
+                          f"[URL]({client.link})\n"
+                          f"[View RAW]({client.raw_link})")
         else:
             reply_text = "`Failed to reach Pastebin Service`"
 
     await pstl.edit(reply_text, link_preview=False)
 
 
-CMD_HELP.update(
-    {
-        "paste": "`.paste` [flags] <text/reply>"
-        "\nUsage: Create a paste to a pastebin service flags ['-d', '-n', '-h', '-k', '-s']"
-        "\n\n-d -> Dogbin\n-n -> Nekobin\n-h -> Hastebin\n-k -> Katbin\n-s -> Spacebin"
-    }
-)
+CMD_HELP.update({
+    "paste":
+    "`.paste` [flags] <text/reply>"
+    "\nUsage: Create a paste to a pastebin service flags ['-d', '-n', '-h', '-k', '-s']"
+    "\n\n-d -> Dogbin\n-n -> Nekobin\n-h -> Hastebin\n-k -> Katbin\n-s -> Spacebin"
+})
