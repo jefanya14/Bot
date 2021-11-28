@@ -37,7 +37,7 @@ async def magnet_download(event):
 
     gid = download.gid
     complete = None
-    while complete != True:
+    while complete is not True:
         file = aria2.get_download(gid)
         complete = file.is_complete
         try:
