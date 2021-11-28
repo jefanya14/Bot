@@ -185,7 +185,7 @@ TEMP_DOWNLOAD_DIRECTORY = os.environ.get("TEMP_DOWNLOAD_DIRECTORY",
                                          "./downloads/")
 
 # Terminal alias
-TERM_ALIAS = os.environ.get("TERM_ALIAS", "OUBnew")
+TERM_ALIAS = os.environ.get("TERM_ALIAS", "Bot")
 
 # JustWatch Country
 WATCH_COUNTRY = os.environ.get("WATCH_COUNTRY")
