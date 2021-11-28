@@ -490,7 +490,7 @@ def user_input():
 
 class googleimagesdownload:
     def __init__(self):
-        pass
+        raise NotImplementedError()
 
     # Downloading entire Web Document (Raw Page Content)
     @staticmethod
