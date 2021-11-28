@@ -31,7 +31,7 @@ __copyright__ = "Copyright (c) 2019 JrMasterModelBuilder"
 __license__ = "MPL-2.0"
 
 
-class Main(object):
+class Main:
     DL_PROGRESS_START = 1
     DL_PROGRESS_READ = 2
     DL_PROGRESS_WROTE = 3
