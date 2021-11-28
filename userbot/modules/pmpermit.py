@@ -230,7 +230,7 @@ async def approvepm(apprvpm):
         )
  
  
-@register(outgoing=True, pattern=r"^.disapprove$")
+@register(outgoing=True, pattern=r"^.untrx$")
 async def disapprovepm(disapprvpm):
     try:
         from userbot.modules.sql_helper.pm_permit_sql import dissprove
@@ -250,7 +250,8 @@ async def disapprovepm(disapprvpm):
         name0 = str(aname.first_name)
  
     await disapprvpm.edit(
-        f"[{name0}](tg://user?id={disapprvpm.chat_id}) `Disaproved to PM!`")
+        f"`#JefanyaBot: ...!`\n\n"
+      f"`Telah Selesai Melakukan Transaksi Dengan` [{name0}](tg://user?id={disapprvpm.chat_id})")
  
     if BOTLOG:
         await disapprvpm.client.send_message(
