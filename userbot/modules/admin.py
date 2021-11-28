@@ -582,7 +582,6 @@ async def gspider(gspdr):
 @register(outgoing=True, pattern="^.zombies(?: |$)(.*)", groups_only=False)
 async def rm_deletedacc(show):
     """For .zombies command, list all the ghost/deleted/zombie accounts in a chat."""
-
     con = show.pattern_match.group(1).lower()
     del_u = 0
     del_status = "`No deleted accounts found, Group is clean`"

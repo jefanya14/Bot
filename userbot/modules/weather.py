@@ -39,7 +39,6 @@ async def get_tz(con):
 @register(outgoing=True, pattern="^.weather(?: |$)(.*)")
 async def get_weather(weather):
     """For .weather command, gets the current weather of a city."""
-
     if not OWM_API:
         await weather.edit(
             "`Get an API key from` https://openweathermap.org/ `first.`")
