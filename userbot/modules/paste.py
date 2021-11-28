@@ -65,7 +65,8 @@ async def paste(pstl):
 
 CMD_HELP.update(
     {
-        "paste": "`.paste` [flags] <text/reply>"
+        "paste": 
+        "`.paste` [flags] <text/reply>"
         "\nUsage: Create a paste to a pastebin service flags ['-d', '-n', '-h', '-k', '-s']"
         "\n\n-d -> Dogbin\n-n -> Nekobin\n-h -> Hastebin\n-k -> Katbin\n-s -> Spacebin"
     }
