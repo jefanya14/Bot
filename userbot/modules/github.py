@@ -25,44 +25,43 @@ async def github(event):
     username = event.pattern_match.group(1)
     URL = f"https://api.github.com/users/{username}"
     chat = await event.get_chat()
-    async with aiohttp.ClientSession() as session:
-        async with session.get(URL) as request:
+    async with aiohttp.ClientSession() as session, session.get(URL) as request:
+        if request.status == 404:
+            return await event.reply(f"`{username} not found`")
+
+        result = await request.json()
+
+        url = result.get("html_url", None)
+        name = result.get("name", None)
+        company = result.get("company", None)
+        bio = result.get("bio", None)
+        created_at = result.get("created_at", "Not Found")
+
+        REPLY = (
+            f"GitHub Info for `{username}`\n"
+            f"Username: `{name}`\n"
+            f"Bio: `{bio}`\n"
+            f"URL: {url}\n"
+            f"Company: `{company}`\n"
+            f"Created at: `{created_at}`\n"
+            f"More info : [Here](https://api.github.com/users/{username}/events/public)"
+        )
+
+        if not result.get("repos_url", None):
+            return await event.edit(REPLY)
+        async with session.get(result.get("repos_url", None)) as request:
+            result = request.json
             if request.status == 404:
-                return await event.reply(f"`{username} not found`")
+                return await event.edit(REPLY)
 
             result = await request.json()
 
-            url = result.get("html_url", None)
-            name = result.get("name", None)
-            company = result.get("company", None)
-            bio = result.get("bio", None)
-            created_at = result.get("created_at", "Not Found")
+            REPLY += "\nRepos:\n"
 
-            REPLY = (
-                f"GitHub Info for `{username}`\n"
-                f"Username: `{name}`\n"
-                f"Bio: `{bio}`\n"
-                f"URL: {url}\n"
-                f"Company: `{company}`\n"
-                f"Created at: `{created_at}`\n"
-                f"More info : [Here](https://api.github.com/users/{username}/events/public)"
-            )
+            for nr in range(len(result)):
+                REPLY += f"[{result[nr].get('name', None)}]({result[nr].get('html_url', None)})\n"
 
-            if not result.get("repos_url", None):
-                return await event.edit(REPLY)
-            async with session.get(result.get("repos_url", None)) as request:
-                result = request.json
-                if request.status == 404:
-                    return await event.edit(REPLY)
-
-                result = await request.json()
-
-                REPLY += "\nRepos:\n"
-
-                for nr in range(len(result)):
-                    REPLY += f"[{result[nr].get('name', None)}]({result[nr].get('html_url', None)})\n"
-
-                await event.edit(REPLY)
+            await event.edit(REPLY)
 
 
 @register(outgoing=True, pattern="^.commit(?: |$)(.*)")
