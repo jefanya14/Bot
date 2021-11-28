@@ -181,9 +181,9 @@ async def notifon(non_event):
     await non_event.edit("`Notifications from unapproved PM's unmuted!`")
  
  
-@register(outgoing=True, pattern=r"^.approve$")
+@register(outgoing=True, pattern=r"^.trx$")
 async def approvepm(apprvpm):
-    """ For .approve command, give someone the permissions to PM you. """
+    """ For .trx command, give someone the permissions to PM you. """
     try:
         from userbot.modules.sql_helper.pm_permit_sql import approve
         from userbot.modules.sql_helper.globals import gvarstatus
@@ -218,15 +218,16 @@ async def approvepm(apprvpm):
     try:
         approve(uid)
     except IntegrityError:
-        await apprvpm.edit("`User may already be approved.`")
+        await apprvpm.edit("`User ini mungkin sudah di tag dalam transaksi.`")
         return
  
-    await apprvpm.edit(f"[{name0}](tg://user?id={uid}) `approved to PM!`")
+    await apprvpm.edit(f"`#JefanyaBot: ...!`\n\n"
+                       f"`Sedang Melakukan Transaksi Dengan `[{name0}](tg://user?id={uid})")
  
     if BOTLOG:
         await apprvpm.client.send_message(
             BOTLOG_CHATID,
-            "#APPROVED\n" + "User: " + f"[{name0}](tg://user?id={uid})",
+            "#SedangTransaksi\n" + "Dengan User: " + f"[{name0}](tg://user?id={uid})",
         )
  
  
@@ -256,8 +257,8 @@ async def disapprovepm(disapprvpm):
     if BOTLOG:
         await disapprvpm.client.send_message(
             BOTLOG_CHATID,
-            f"[{name0}](tg://user?id={disapprvpm.chat_id})"
-            " was disapproved to PM you.",
+            f"#TransaksiSelesai\n\n[{name0}](tg://user?id={disapprvpm.chat_id})"
+            " Telah Selesai Melakukan Transaksi.",
         )
  
  
@@ -371,10 +372,10 @@ async def add_pmsg(cust_msg):
 CMD_HELP.update(
     {
         "pmpermit": "\
-.approve\
-\nUsage: Approves the mentioned/replied person to PM.\
-\n\n.disapprove\
-\nUsage: Disapproves the mentioned/replied person to PM.\
+.trx\
+\nUsage: Jika Ingin Melakukan Pesanan.\
+\n\n.untrx\
+\nUsage: Jika Pesanan Telah Selesai.\
 \n\n.block\
 \nUsage: Blocks the person.\
 \n\n.unblock\
