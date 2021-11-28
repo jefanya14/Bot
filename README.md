@@ -5,7 +5,7 @@ Project is no longer maintained! Use other userbot if you want to deploy
 as this Project is outdated.
 ```
 
-# Project OUBnew-Fortizer
+# Project Bot Userbot
 
 ![our](https://github.com/jefanya14/Bot/blob/sql-extended/1632660286-picsay.png)
 
@@ -39,13 +39,6 @@ as this Project is outdated.
 
 # Google Drive Tutorial
 [![SetGD](https://raw.githubusercontent.com/jefanya14/Bot/sql-extended/gd.png)](https://telegra.ph/How-To-Setup-Google-Drive-04-03)
-
-
-# Updates and Support
-
-Join <a href="https://t.me/userbotindocloud">Userbot Indo Cloud</a> Channel for update notifications!
-
-Also join <a href="https://t.me/userbotindo">Userbot INDO🇮🇩</a> Telegram Group for help and support!
 
 
 
