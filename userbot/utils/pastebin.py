@@ -26,7 +26,8 @@ class PasteBin:
         self.retries = 5
 
     def __bool__(self):
-        return bool(self._dkey or self._nkey or self._hkey or self._kkey or self._skey)
+        return bool(self._dkey or self._nkey or self._hkey or self._kkey
+                    or self._skey)
 
     async def __aenter__(self):
         return self
@@ -66,9 +67,8 @@ class PasteBin:
         if self._dkey:
             return
         try:
-            async with self.http.post(
-                self.DOGBIN_URL + "documents", data=self.data.encode("utf-8")
-            ) as req:
+            async with self.http.post(self.DOGBIN_URL + "documents",
+                                      data=self.data.encode("utf-8")) as req:
                 if req.status == 200:
                     res = await req.json()
                     self._dkey = res["key"]
@@ -81,9 +81,8 @@ class PasteBin:
         if self._nkey:
             return
         try:
-            async with self.http.post(
-                self.NEKOBIN_URL + "api/documents", json={"content": self.data}
-            ) as req:
+            async with self.http.post(self.NEKOBIN_URL + "api/documents",
+                                      json={"content": self.data}) as req:
                 if req.status == 201:
                     res = await req.json()
                     self._nkey = res["result"]["key"]
@@ -96,9 +95,8 @@ class PasteBin:
         if self._hkey:
             return
         try:
-            async with self.http.post(
-                self.HASTEBIN_URL + "documents", data=self.data.encode("utf-8")
-            ) as req:
+            async with self.http.post(self.HASTEBIN_URL + "documents",
+                                      data=self.data.encode("utf-8")) as req:
                 if req.status == 200:
                     res = await req.json()
                     self._hkey = res["key"]
@@ -115,8 +113,11 @@ class PasteBin:
             return
         try:
             async with self.http.post(
-                self.KATBIN_URL,
-                data={"_csrf_token": token, "paste[content]": self.data},
+                    self.KATBIN_URL,
+                    data={
+                        "_csrf_token": token,
+                        "paste[content]": self.data
+                    },
             ) as req:
                 if req.status != 200:
                     self.retry = "spacebin"
@@ -130,8 +131,11 @@ class PasteBin:
             return
         try:
             async with self.http.post(
-                self.SPACEBIN_URL + "api/v1/documents",
-                json={"content": self.data, "extension": "txt"},
+                    self.SPACEBIN_URL + "api/v1/documents",
+                    json={
+                        "content": self.data,
+                        "extension": "txt"
+                    },
             ) as req:
                 if req.status == 201:
                     res = await req.json()
