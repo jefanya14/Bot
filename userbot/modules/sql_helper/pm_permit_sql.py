@@ -2,7 +2,7 @@ try:
     from userbot.modules.sql_helper import BASE, SESSION
 except ImportError:
     raise AttributeError
-from sqlalchemy import Boolean, Column, Integer, String, UnicodeText, distinct, func
+from sqlalchemy import Column, String
 
 
 class PMPermit(BASE):

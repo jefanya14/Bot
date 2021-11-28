@@ -2,11 +2,9 @@
 # Author: Sumanjay (https://github.com/cyberboysumanjay) (@cyberboysumanjay)
 # All rights reserved.
 """Syntax: .watch Movie/TV Show"""
-import requests
 from justwatch import JustWatch
-from telethon import events
 
-from userbot import CMD_HELP, WATCH_COUNTRY, bot
+from userbot import CMD_HELP, WATCH_COUNTRY
 from userbot.events import register
 
 
@@ -73,7 +71,7 @@ def get_provider(url):
     return url
 
 
-@register(outgoing=True, pattern="^\.watch (.*)")
+@register(outgoing=True, pattern="^\\.watch (.*)")
 async def _(event):
     if event.fwd_from:
         return

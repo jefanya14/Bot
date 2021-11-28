@@ -1,5 +1,5 @@
 from sql_helpers import BASE, SESSION
-from sqlalchemy import Column, LargeBinary, Numeric, UnicodeText
+from sqlalchemy import Column, Numeric, UnicodeText
 
 
 class LydiaAI(BASE):
@@ -22,7 +22,7 @@ LydiaAI.__table__.create(checkfirst=True)
 def get_s(user_id, chat_id):
     try:
         return SESSION.query(LydiaAI).get((user_id, chat_id))
-    except:
+    except BaseException:
         return None
     finally:
         SESSION.close()
@@ -31,7 +31,7 @@ def get_s(user_id, chat_id):
 def get_all_s():
     try:
         return SESSION.query(LydiaAI).all()
-    except:
+    except BaseException:
         return None
     finally:
         SESSION.close()

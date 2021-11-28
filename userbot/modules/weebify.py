@@ -1,9 +1,8 @@
 # Inspired by Saitama Bot, credits - @kirito6969, @PhycoNinja13b
 # Thx to @DeletedUser420
 
-from telethon import events
 
-from userbot import CMD_HELP, bot
+from userbot import CMD_HELP
 from userbot.events import register
 
 # from uniborg.util import admin_cmd

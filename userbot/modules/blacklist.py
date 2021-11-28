@@ -5,15 +5,12 @@
 
 # port to userbot from uniborg by @keselekpermen69
 
-import asyncio
 import io
 import re
 
-from telethon import events, utils
-from telethon.tl import functions, types
 
 import userbot.modules.sql_helper.blacklist_sql as sql
-from userbot import CMD_HELP, bot
+from userbot import CMD_HELP
 from userbot.events import register
 
 
@@ -27,7 +24,7 @@ async def on_new_message(event):
         if re.search(pattern, name, flags=re.IGNORECASE):
             try:
                 await event.delete()
-            except Exception as e:
+            except Exception:
                 await event.reply(
                     "I do not have DELETE permission in this chat")
                 await sleep(1)

@@ -69,9 +69,11 @@ GITHUB_ACCESS_TOKEN = os.environ.get("GITHUB_ACCESS_TOKEN")
 BOTLOG = sb(os.environ.get("BOTLOG", "False"))
 LOGSPAMMER = sb(os.environ.get("LOGSPAMMER", "False"))
 
-# Genius lyrics get this value from https://genius.com/developers both has same values
+# Genius lyrics get this value from https://genius.com/developers both has
+# same values
 GENIUS_API_TOKEN = os.environ.get("GENIUS")
-# Genius lyrics get this value from https://genius.com/developers both has same values
+# Genius lyrics get this value from https://genius.com/developers both has
+# same values
 GENIUS = os.environ.get("GENIUS_API_TOKEN")
 
 # Quotes API Token
@@ -235,7 +237,7 @@ async def check_botlog_chatid():
 with bot:
     try:
         bot.loop.run_until_complete(check_botlog_chatid())
-    except:
+    except BaseException:
         LOGS.info(
             "BOTLOG_CHATID environment variable isn't a "
             "valid entity. Check your environment variables/config.env file.")

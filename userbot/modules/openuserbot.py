@@ -5,7 +5,6 @@
 #
 # You can find misc modules, which dont fit in anything xD
 """ Userbot module for other small commands. """
-import sys
 
 from userbot import CMD_HELP
 from userbot.events import register

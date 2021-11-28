@@ -4,7 +4,7 @@ except ImportError:
     raise AttributeError
 import threading
 
-from sqlalchemy import Column, Numeric, String, UnicodeText
+from sqlalchemy import Column, String, UnicodeText
 
 
 class BlackListFilters(BASE):

@@ -9,13 +9,11 @@ from userbot import CMD_HELP, TEMP_DOWNLOAD_DIRECTORY
 from userbot.events import register
 
 
-@register(
-    outgoing=True,
-    pattern="^\.web ?(.+?|) (anonfiles|transfer|filebin|anonymousfiles|megaupload|bayfiles|letsupload|0x0)",
-)
+@register(outgoing=True,
+          pattern="^\\.web ?(.+?|) (anonfiles|transfer|filebin|anonymousfiles|megaupload|bayfiles|letsupload|0x0)",
+          )
 async def _(event):
     await event.edit("`Processing ...`")
-    PROCESS_RUN_TIME = 100
     input_str = event.pattern_match.group(1)
     selected_transfer = event.pattern_match.group(2)
     if input_str:
@@ -54,7 +52,7 @@ async def _(event):
     process = await asyncio.create_subprocess_shell(
         cmd, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE)
     stdout, stderr = await process.communicate()
-    e_response = stderr.decode().strip()
+    stderr.decode().strip()
     # logger.info(e_response)
     t_response = stdout.decode().strip()
     # logger.info(t_response)
@@ -66,7 +64,7 @@ async def _(event):
             t_response = json.dumps(json.loads(t_response),
                                     sort_keys=True,
                                     indent=4)
-        except Exception as e:
+        except Exception:
             # some sites don't return valid JSONs
             pass
         # assuming, the return values won't be longer than
@@ -74,9 +72,6 @@ async def _(event):
         await event.edit(t_response)
 
 
-CMD_HELP.update({
-    "webupload":
-    ">`.web` **File** **Server**"
-    "\nServer List: anonfiles|transfer|filebin|anonymousfiles|megaupload|bayfiles|lestupload|0x0"
-    "\nUsage: Upload file to web."
-})
+CMD_HELP.update({"webupload": ">`.web` **File** **Server**"
+                 "\nServer List: anonfiles|transfer|filebin|anonymousfiles|megaupload|bayfiles|lestupload|0x0"
+                 "\nUsage: Upload file to web."})

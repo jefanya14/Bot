@@ -1,7 +1,6 @@
 import io
 
 import requests
-from telethon import events
 
 from userbot import CMD_HELP, SS_LAYER_KEY, bot
 from userbot.events import register

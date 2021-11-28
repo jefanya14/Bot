@@ -53,7 +53,7 @@ async def get_chatinfo(event):
             chat = event.chat_id
     try:
         chat_info = await event.client(GetFullChatRequest(chat))
-    except:
+    except BaseException:
         try:
             chat_info = await event.client(GetFullChannelRequest(chat))
         except ChannelInvalidError:
@@ -109,13 +109,13 @@ async def fetch_info(chat, event):
     created = msg_info.messages[0].date if first_msg_valid else None
     former_title = (
         msg_info.messages[0].action.title if first_msg_valid and
-        type(msg_info.messages[0].action) is MessageActionChannelMigrateFrom
+        isinstance(msg_info.messages[0].action, MessageActionChannelMigrateFrom)
         and msg_info.messages[0].action.title != chat_title else None)
     try:
         dc_id, _ = get_input_location(chat.full_chat.chat_photo)
     except Exception as e:
         dc_id = "Unknown"
-        location = str(e)
+        str(e)
 
     # this is some spaghetti I need to change
     description = chat.full_chat.about
@@ -160,7 +160,8 @@ async def fetch_info(chat, event):
     # end of spaghetti block
 
     if admins is None:
-        # use this alternative way if chat.full_chat.admins_count is None, works even without being an admin
+        # use this alternative way if chat.full_chat.admins_count is None,
+        # works even without being an admin
         try:
             participants_admins = await event.client(
                 GetParticipantsRequest(
