@@ -10,9 +10,7 @@ as this Project is outdated.
 
 ![our](https://github.com/jefanya14/Bot/blob/sql-extended/1632660286-picsay.png)
 
-`
- A modular Telegram userbot running on Python 3.8+ with an sqlalchemy database.
-`
+` A modular Telegram userbot running on Python 3.8+ with an sqlalchemy database.`
 
 ```
 #include <std/disclaimer.h>
@@ -33,27 +31,23 @@ as this Project is outdated.
 <p align="center">&nbsp;</p>
 
 # Easy way to deploy
-<p><a href="https://heroku.com/deploy?template=https://github.com/jefanya14/Bot/tree/sql-extended"> <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy to Heroku" /></a></p>
 
+<p><a href="https://heroku.com/deploy?template=https://github.com/jefanya14/Bot/tree/sql-extended"> <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy to Heroku" /></a></p>
 
 <p align="center">&nbsp;</p>
 
 # Google Drive Tutorial
+
 [![SetGD](https://raw.githubusercontent.com/jefanya14/Bot/sql-extended/gd.png)](https://telegra.ph/How-To-Setup-Google-Drive-04-03)
 
-
-
-
-
-
-
 ## Credits
-* [lonami](https://lonami.dev) - For creating [Telethon](https://github.com/LonamiWebs/Telethon)
-* [RaphielGang](https://github.com/RaphielGang) - Telegram-Paperplane
-* [AvinashReddy3108](https://github.com/AvinashReddy3108) - PaperplaneExtended
-* [kandnub](https://github.com/kandnub) - TG-UserBot
-* [AdekMaulana](https://github.com/adekmaulana) - ProjectBish
-* [Mkaraniya](https://github.com/mkaraniya) - OpenUserBot
+
+- [lonami](https://lonami.dev) - For creating [Telethon](https://github.com/LonamiWebs/Telethon)
+- [RaphielGang](https://github.com/RaphielGang) - Telegram-Paperplane
+- [AvinashReddy3108](https://github.com/AvinashReddy3108) - PaperplaneExtended
+- [kandnub](https://github.com/kandnub) - TG-UserBot
+- [AdekMaulana](https://github.com/adekmaulana) - ProjectBish
+- [Mkaraniya](https://github.com/mkaraniya) - OpenUserBot
 
 <p align="center">&nbsp;</p>
 <h2 align="center">License</h2>

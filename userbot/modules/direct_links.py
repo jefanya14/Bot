@@ -30,19 +30,17 @@ async def subprocess_run(cmd):
     exitCode = subproc.returncode
     if exitCode != 0:
         reply = ""
-        reply += (
-            "**An error was detected while running subprocess.**\n"
-            f"exitCode : `{exitCode}`\n"
-            f"stdout : `{result[0].decode().strip()}`\n"
-            f"stderr : `{result[1].decode().strip()}`"
-        )
+        reply += ("**An error was detected while running subprocess.**\n"
+                  f"exitCode : `{exitCode}`\n"
+                  f"stdout : `{result[0].decode().strip()}`\n"
+                  f"stderr : `{result[1].decode().strip()}`")
         return reply
     return result
 
 
 @register(outgoing=True, pattern=r"^\.direct(?: |$)([\s\S]*)")
 async def direct_link_generator(request):
-    """ direct links generator """
+    """direct links generator"""
     await request.edit("**Processing...**")
     textx = await request.get_reply_message()
     message = request.pattern_match.group(1)
@@ -78,7 +76,8 @@ async def direct_link_generator(request):
             await uptobox(request, link)
             return None
         else:
-            reply += re.findall(r"\bhttps?://(.*?[^/]+)", link)[0] + "is not supported"
+            reply += re.findall(r"\bhttps?://(.*?[^/]+)",
+                                link)[0] + "is not supported"
     await request.edit(reply)
 
 
@@ -88,13 +87,13 @@ async def zippy_share(url: str) -> str:
     bs_obj = BeautifulSoup(response_content, "lxml")
 
     try:
-        js_script = bs_obj.find("div", {"class": "center",}).find_all(
-            "script"
-        )[1]
+        js_script = bs_obj.find("div", {
+            "class": "center",
+        }).find_all("script")[1]
     except:
-        js_script = bs_obj.find("div", {"class": "right",}).find_all(
-            "script"
-        )[0]
+        js_script = bs_obj.find("div", {
+            "class": "right",
+        }).find_all("script")[0]
 
     js_content = re.findall(r'\.href.=."/(.*?)";', str(js_script))
     js_content = 'var x = "/' + js_content[0] + '"'
@@ -154,7 +153,7 @@ async def cm_ru(url: str) -> str:
 
 
 async def mediafire(url: str) -> str:
-    """ MediaFire direct links generator """
+    """MediaFire direct links generator"""
     try:
         link = re.findall(r"\bhttps?://.*mediafire\.com\S+", url)[0]
     except IndexError:
@@ -171,7 +170,7 @@ async def mediafire(url: str) -> str:
 
 
 async def sourceforge(url: str) -> str:
-    """ SourceForge direct links generator """
+    """SourceForge direct links generator"""
     try:
         link = re.findall(r"\bhttps?://.*sourceforge\.net\S+", url)[0]
     except IndexError:
@@ -180,10 +179,8 @@ async def sourceforge(url: str) -> str:
     file_path = re.findall(r"files(.*)/download", link)[0]
     reply = f"Mirrors for __{file_path.split('/')[-1]}__\n"
     project = re.findall(r"projects?/(.*?)/files", link)[0]
-    mirrors = (
-        f"https://sourceforge.net/settings/mirror_choices?"
-        f"projectname={project}&filename={file_path}"
-    )
+    mirrors = (f"https://sourceforge.net/settings/mirror_choices?"
+               f"projectname={project}&filename={file_path}")
     page = BeautifulSoup(requests.get(mirrors).content, "html.parser")
     info = page.find("ul", {"id": "mirrorList"}).findAll("li")
     for mirror in info[1:]:
@@ -196,14 +193,15 @@ async def sourceforge(url: str) -> str:
 
 
 async def osdn(url: str) -> str:
-    """ OSDN direct links generator """
+    """OSDN direct links generator"""
     osdn_link = "https://osdn.net"
     try:
         link = re.findall(r"\bhttps?://.*osdn\.net\S+", url)[0]
     except IndexError:
         reply = "**No OSDN links found.**\n"
         return reply
-    page = BeautifulSoup(requests.get(link, allow_redirects=True).content, "lxml")
+    page = BeautifulSoup(
+        requests.get(link, allow_redirects=True).content, "lxml")
     info = page.find("a", {"class": "mirror_link"})
     link = urllib.parse.unquote(osdn_link + info["href"])
     reply = f"Mirrors for __{link.split('/')[-1]}__\n"
@@ -217,7 +215,7 @@ async def osdn(url: str) -> str:
 
 
 async def github(url: str) -> str:
-    """ GitHub direct links generator """
+    """GitHub direct links generator"""
     try:
         link = re.findall(r"\bhttps?://.*github\.com.*releases\S+", url)[0]
     except IndexError:
@@ -236,7 +234,7 @@ async def github(url: str) -> str:
 
 
 async def androidfilehost(url: str) -> str:
-    """ AFH direct links generator """
+    """AFH direct links generator"""
     try:
         link = re.findall(r"\bhttps?://.*androidfilehost.*fid.*\S+", url)[0]
     except IndexError:
@@ -259,7 +257,11 @@ async def androidfilehost(url: str) -> str:
         "authority": "androidfilehost.com",
         "x-requested-with": "XMLHttpRequest",
     }
-    data = {"submit": "submit", "action": "getdownloadmirrors", "fid": f"{fid}"}
+    data = {
+        "submit": "submit",
+        "action": "getdownloadmirrors",
+        "fid": f"{fid}"
+    }
     mirrors = None
     reply = ""
     error = "**Error: Can't find mirrors for given link.**\n"
@@ -284,7 +286,7 @@ async def androidfilehost(url: str) -> str:
 
 
 async def uptobox(request, url: str) -> str:
-    """ Uptobox direct links generator """
+    """Uptobox direct links generator"""
     try:
         link = re.findall(r"\bhttps?://.*uptobox\.com\S+", url)[0]
     except IndexError:
@@ -307,8 +309,7 @@ async def uptobox(request, url: str) -> str:
                 await request.edit(
                     "**Error!**\n"
                     f"**statusCode**: `{data.get('error').get('code')}`\n"
-                    f"**reason**: `{data.get('error').get('message')}`"
-                )
+                    f"**reason**: `{data.get('error').get('message')}`")
                 return
             file_name = data.get("file_name")
             file_size = naturalsize(data.get("file_size"))
@@ -321,25 +322,27 @@ async def uptobox(request, url: str) -> str:
             if status == "Waiting needed":
                 wait = result.get("data").get("waiting")
                 waitingToken = result.get("data").get("waitingToken")
-                await request.edit(f"**Waiting for about {time_formatter(wait)}...**")
+                await request.edit(
+                    f"**Waiting for about {time_formatter(wait)}...**")
                 # for some reason it doesn't go as i planned
                 # so make it 1 minute just to be save enough
                 await asyncio.sleep(wait + 60)
                 uri += f"&waitingToken={waitingToken}"
                 async with session.get(uri) as response:
-                    await request.edit("**Generating direct download link...**")
+                    await request.edit("**Generating direct download link...**"
+                                       )
                     result = json.loads(await response.text())
                     status = result.get("message")
                     if status == "Success":
                         webLink = result.get("data").get("dlLink")
-                        await request.edit(f"[{file_name} ({file_size})]({webLink})")
+                        await request.edit(
+                            f"[{file_name} ({file_size})]({webLink})")
                     else:
                         await request.edit(
                             "**Error!**\n"
                             f"**statusCode**: `{result.get('statusCode')}`\n"
                             f"**reason**: `{result.get('data')}`\n"
-                            f"**status**: `{status}`"
-                        )
+                            f"**status**: `{status}`")
                     return
             elif status == "Success":
                 webLink = result.get("data").get("dlLink")
@@ -350,8 +353,7 @@ async def uptobox(request, url: str) -> str:
                     "**Error!**\n"
                     f"**statusCode**: `{result.get('statusCode')}`\n"
                     f"**reason**: `{result.get('data')}`\n"
-                    f"**status**: `{status}`"
-                )
+                    f"**status**: `{status}`")
                 return
 
 
@@ -362,21 +364,19 @@ async def useragent():
     useragents = BeautifulSoup(
         requests.get(
             "https://developers.whatismybrowser.com/"
-            "useragents/explore/operating_system_name/android/"
-        ).content,
+            "useragents/explore/operating_system_name/android/").content,
         "lxml",
     ).findAll("td", {"class": "useragent"})
     user_agent = choice(useragents)
     return user_agent.text
 
 
-CMD_HELP.update(
-    {
-        "direct": ">`.direct <url>`"
-        "\nUsage: Reply to a link or paste a URL to\n"
-        "generate a direct download link\n\n"
-        "List of supported URLs:\n"
-        "`Google Drive - Cloud Mail - Yandex.Disk - AFH - "
-        "ZippyShare - MediaFire - SourceForge - OSDN - GitHub`"
-    }
-)
+CMD_HELP.update({
+    "direct":
+    ">`.direct <url>`"
+    "\nUsage: Reply to a link or paste a URL to\n"
+    "generate a direct download link\n\n"
+    "List of supported URLs:\n"
+    "`Google Drive - Cloud Mail - Yandex.Disk - AFH - "
+    "ZippyShare - MediaFire - SourceForge - OSDN - GitHub`"
+})

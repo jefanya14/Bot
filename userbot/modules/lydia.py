@@ -10,16 +10,14 @@
 Userbot module to use an AI To respond to people
 """
 
-from coffeehouse.lydia import LydiaAI
-from coffeehouse.api import API
 import asyncio
-from userbot import LYDIA_API_KEY
 
-from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot
-
-
-from userbot.events import register
+from coffeehouse.api import API
+from coffeehouse.lydia import LydiaAI
 from telethon import events
+
+from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, LYDIA_API_KEY, bot
+from userbot.events import register
 
 # Non-SQL Mode
 ACC_LYDIA = {}
@@ -70,9 +68,7 @@ async def addcf(event):
         ACC_LYDIA.update({(event.chat_id & reply_msg.from_id): session})
         await event.edit(
             "Lydia successfully enabled for user: {} in chat: {}".format(
-                str(reply_msg.from_id), str(event.chat_id)
-            )
-        )
+                str(reply_msg.from_id), str(event.chat_id)))
     else:
         await event.edit("Reply to a user to activate Lydia AI on them")
 
@@ -93,11 +89,10 @@ async def remcf(event):
         del ACC_LYDIA[event.chat_id & reply_msg.from_id]
         await event.edit(
             "Lydia successfully disabled for user: {} in chat: {}".format(
-                str(reply_msg.from_id), str(event.chat_id)
-            )
-        )
+                str(reply_msg.from_id), str(event.chat_id)))
     except Exception:
-        await event.edit("This person does not have Lydia activated on him/her.")
+        await event.edit(
+            "This person does not have Lydia activated on him/her.")
 
 
 @register(incoming=True, disable_edited=True)
@@ -117,13 +112,12 @@ async def user(event):
         return
 
 
-CMD_HELP.update(
-    {
-        "lydia": ".addcf <username/reply>\
+CMD_HELP.update({
+    "lydia":
+    ".addcf <username/reply>\
 \nUsage: add's lydia auto chat request in the chat.\
 \n\n.remcf <username/reply>\
 \nUsage: remove's lydia auto chat request in the chat.\
 \n\n.repcf <username/reply>\
 \nUsage: starts lydia repling to perticular person in the chat."
-    }
-)
+})

@@ -30,7 +30,7 @@ from userbot.utils.FastTelethon import download_file, upload_file
 
 @register(pattern=r"^\.dl(?: |$)(.*)", outgoing=True)
 async def download(target_file):
-    """ For .download command, download files to the userbot's server. """
+    """For .download command, download files to the userbot's server."""
     await target_file.edit("`Processing...`")
     input_str = target_file.pattern_match.group(1)
     replied = await target_file.get_reply_message()
@@ -46,7 +46,8 @@ async def download(target_file):
             file_name = file_name.strip()
             head, tail = os.path.split(file_name)
             if head:
-                if not os.path.isdir(os.path.join(TEMP_DOWNLOAD_DIRECTORY, head)):
+                if not os.path.isdir(
+                        os.path.join(TEMP_DOWNLOAD_DIRECTORY, head)):
                     os.makedirs(os.path.join(TEMP_DOWNLOAD_DIRECTORY, head))
                     file_name = os.path.join(head, tail)
         downloaded_file_name = TEMP_DOWNLOAD_DIRECTORY + "" + file_name
@@ -64,7 +65,8 @@ async def download(target_file):
             speed = downloader.get_speed()
             progress_str = "[{0}{1}] `{2}%`".format(
                 "".join(["●" for i in range(math.floor(percentage / 10))]),
-                "".join(["○" for i in range(10 - math.floor(percentage / 10))]),
+                "".join(["○"
+                         for i in range(10 - math.floor(percentage / 10))]),
                 round(percentage, 2),
             )
             estimated_total_time = downloader.get_eta(human=True)
@@ -75,18 +77,17 @@ async def download(target_file):
                     f"\n**{status}**... | {progress_str}"
                     f"\n{humanbytes(downloaded)} of {humanbytes(total_length)}"
                     f" @ {humanbytes(speed)}"
-                    f"\n`ETA` -> {estimated_total_time}"
-                )
+                    f"\n`ETA` -> {estimated_total_time}")
 
-                if round(diff % 15.00) == 0 and current_message != display_message:
+                if round(diff %
+                         15.00) == 0 and current_message != display_message:
                     await target_file.edit(current_message)
                     display_message = current_message
             except Exception as e:
                 LOGS.info(str(e))
         if downloader.isSuccessful():
-            await target_file.edit(
-                "Downloaded to `{}` successfully !!".format(downloaded_file_name)
-            )
+            await target_file.edit("Downloaded to `{}` successfully !!".format(
+                downloaded_file_name))
         else:
             await target_file.edit("Incorrect URL\n{}".format(url))
     elif replied:
@@ -100,13 +101,13 @@ async def download(target_file):
                 filename = replied.file.name
                 if not filename:
                     if "audio" in mime_type:
-                        filename = (
-                            "audio_" + datetime.now().isoformat("_", "seconds") + ".ogg"
-                        )
+                        filename = ("audio_" +
+                                    datetime.now().isoformat("_", "seconds") +
+                                    ".ogg")
                     elif "video" in mime_type:
-                        filename = (
-                            "video_" + datetime.now().isoformat("_", "seconds") + ".mp4"
-                        )
+                        filename = ("video_" +
+                                    datetime.now().isoformat("_", "seconds") +
+                                    ".mp4")
                 outdir = TEMP_DOWNLOAD_DIRECTORY + filename
                 c_time = time.time()
                 start_time = datetime.now()
@@ -115,34 +116,36 @@ async def download(target_file):
                         client=target_file.client,
                         location=file,
                         out=f,
-                        progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
-                            progress(d, t, target_file, c_time, "[DOWNLOAD]", input_str)
-                        ),
+                        progress_callback=lambda d, t: asyncio.get_event_loop(
+                        ).create_task(
+                            progress(d, t, target_file, c_time, "[DOWNLOAD]",
+                                     input_str)),
                     )
             else:
                 start_time = datetime.now()
                 result = await target_file.client.download_media(
-                    media, TEMP_DOWNLOAD_DIRECTORY
-                )
+                    media, TEMP_DOWNLOAD_DIRECTORY)
             dl_time = (datetime.now() - start_time).seconds
         except Exception as e:  # pylint:disable=C0103,W0703
             await target_file.edit(str(e))
         else:
             try:
                 await target_file.edit(
-                    "Downloaded to `{}` in `{}` seconds.".format(result.name, dl_time)
-                )
+                    "Downloaded to `{}` in `{}` seconds.".format(
+                        result.name, dl_time))
             except AttributeError:
                 await target_file.edit(
-                    "Downloaded to `{}` in `{}` seconds.".format(result, dl_time)
-                )
+                    "Downloaded to `{}` in `{}` seconds.".format(
+                        result, dl_time))
     else:
         await target_file.edit("See `.help download` for more info.")
 
 
 async def get_video_thumb(file, output):
-    """ Get video thumbnail """
-    command = ["ffmpeg", "-i", file, "-ss", "00:00:01.000", "-vframes", "1", output]
+    """Get video thumbnail"""
+    command = [
+        "ffmpeg", "-i", file, "-ss", "00:00:01.000", "-vframes", "1", output
+    ]
     t_resp, e_resp = await run_cmd(command)
     if os.path.lexists(output):
         return output
@@ -170,9 +173,10 @@ async def upload(event):
                     client=event.client,
                     file=f,
                     name=file_name,
-                    progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
-                        progress(d, t, event, c_time, "[FILE - UPLOAD]", input_str)
-                    ),
+                    progress_callback=lambda d, t: asyncio.get_event_loop().
+                    create_task(
+                        progress(d, t, event, c_time, "[FILE - UPLOAD]",
+                                 input_str)),
                 )
             up_time = (datetime.now() - start_time).seconds
             if input_str.lower().endswith(("mp4", "mkv", "webm")):
@@ -235,7 +239,8 @@ async def upload(event):
                     lst_files.append(os.path.join(root, file))
             if len(lst_files) == 0:
                 return await event.edit(f"`{input_str}` is empty.")
-            await event.edit(f"Found `{len(lst_files)}` files. Now uploading...")
+            await event.edit(
+                f"Found `{len(lst_files)}` files. Now uploading...")
             for files in os_sorted(lst_files):
                 file_name = os.path.basename(files)
                 thumb = None
@@ -303,19 +308,17 @@ async def upload(event):
             up_time = (datetime.now() - start_time).seconds
             await event.respond(
                 f"Uploaded `{len(lst_files)}` files in `{input_str}` folder "
-                f"in `{up_time}` seconds."
-            )
+                f"in `{up_time}` seconds.")
     else:
         await event.edit("`404: File/Folder Not Found`")
 
 
-CMD_HELP.update(
-    {
-        "download": ">`.dl` <link> | <filename> (optional)"
-        "\nUsage: Downloads file from url to the server."
-        "\n\n>`.dl` <reply to file>"
-        "\nUsage: Downloads file from the replied file/media."
-        "\n\n>`.up` <file/folder path in server>"
-        "\nUsage: Uploads a locally stored file/folder to the chat."
-    }
-)
+CMD_HELP.update({
+    "download":
+    ">`.dl` <link> | <filename> (optional)"
+    "\nUsage: Downloads file from url to the server."
+    "\n\n>`.dl` <reply to file>"
+    "\nUsage: Downloads file from the replied file/media."
+    "\n\n>`.up` <file/folder path in server>"
+    "\nUsage: Uploads a locally stored file/folder to the chat."
+})

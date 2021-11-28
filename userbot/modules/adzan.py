@@ -1,4 +1,5 @@
 import json
+
 import requests
 
 from userbot import CMD_HELP
@@ -37,24 +38,21 @@ async def get_adzan(adzan):
     maghrib = parsed["results"]["datetime"][0]["times"]["Maghrib"]
     isya = parsed["results"]["datetime"][0]["times"]["Isha"]
 
-    result = (
-        f"**Jadwal Sholat**:\n"
-        f"📅 `{date}`\n"
-        f"🌏 `{city} | {country}`\n\n"
-        f"**Imsak :** `{imsak}`\n"
-        f"**Subuh :** `{subuh}`\n"
-        f"**Zuhur :** `{zuhur}`\n"
-        f"**Ashar :** `{ashar}`\n"
-        f"**Maghrib :** `{maghrib}`\n"
-        f"**Isya :** `{isya}`\n"
-    )
+    result = (f"**Jadwal Sholat**:\n"
+              f"📅 `{date}`\n"
+              f"🌏 `{city} | {country}`\n\n"
+              f"**Imsak :** `{imsak}`\n"
+              f"**Subuh :** `{subuh}`\n"
+              f"**Zuhur :** `{zuhur}`\n"
+              f"**Ashar :** `{ashar}`\n"
+              f"**Maghrib :** `{maghrib}`\n"
+              f"**Isya :** `{isya}`\n")
 
     await adzan.edit(result)
 
 
-CMD_HELP.update(
-    {
-        "adzan": ">`.adzan` **city**\
+CMD_HELP.update({
+    "adzan":
+    ">`.adzan` **city**\
         \nUsage: Gets the prayer time for moslem."
-    }
-)
+})

@@ -15,11 +15,11 @@ from traceback import format_exc
 
 from telethon import events
 
-from userbot import bot, BOTLOG_CHATID, LOGSPAMMER
+from userbot import BOTLOG_CHATID, LOGSPAMMER, bot
 
 
 def register(**args):
-    """ Register a new event. """
+    """Register a new event."""
     pattern = args.get("pattern", None)
     disable_edited = args.get("disable_edited", False)
     ignore_unsafe = args.get("ignore_unsafe", False)
@@ -126,11 +126,12 @@ def register(**args):
 
                     ftext += "\n\n\nLast 10 commits:\n"
 
-                    process = await asyncsubshell(
-                        command, stdout=asyncsub.PIPE, stderr=asyncsub.PIPE
-                    )
+                    process = await asyncsubshell(command,
+                                                  stdout=asyncsub.PIPE,
+                                                  stderr=asyncsub.PIPE)
                     stdout, stderr = await process.communicate()
-                    result = str(stdout.decode().strip()) + str(stderr.decode().strip())
+                    result = str(stdout.decode().strip()) + str(
+                        stderr.decode().strip())
 
                     ftext += result
 
