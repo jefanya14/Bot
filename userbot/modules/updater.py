@@ -215,6 +215,4 @@ CMD_HELP.update({
     "\n\n>`.update now`"
     "\nUsage: Performs a quick update."
     "\nHeroku resets updates performed using this method after a while. Use `deploy` instead."
-    "\n\n>`.update deploy`"
-    "\nUsage: Performs a full update (recommended)."
 })
