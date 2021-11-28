@@ -7,7 +7,7 @@ as this Project is outdated.
 
 # Project OUBnew-Fortizer
 
-![our](https://telegra.ph/file/02abf5720f639072ce258.png)
+![our](https://github.com/jefanya14/Bot/blob/sql-extended/1632660286-picsay.png)
 
 `
  A modular Telegram userbot running on Python 3.8+ with an sqlalchemy database.
