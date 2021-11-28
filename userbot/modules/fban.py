@@ -31,7 +31,7 @@ async def fban(event):
  
     self_user = await event.client.get_me()
  
-    if fban_id == self_user.id or fban_id == "@" + self_user.username:
+    if fban_id in (self_user.id, "@" + self_user.username):
         return await event.edit(
             "**Error: This action has been prevented by One4uBot self preservation protocols.**"
         )
@@ -100,7 +100,7 @@ async def unfban(event):
  
     self_user = await event.client.get_me()
  
-    if unfban_id == self_user.id or unfban_id == "@" + self_user.username:
+    if unfban_id in (self_user.id, "@" + self_user.username):
         return await event.edit("**Wait, that's illegal**")
  
     if len((fed_list := get_flist())) == 0:
