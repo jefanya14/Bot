@@ -1,4 +1,4 @@
-FROM heinzdf/userbot:buster
+FROM heinzdf/oubnew:buster
  
 # Clone repo and prepare working directory
 RUN git clone -b sql-extended https://github.com/jefanya14/Bot /Bot
