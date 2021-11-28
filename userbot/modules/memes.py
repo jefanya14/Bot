@@ -5,24 +5,16 @@
 #
 """ Userbot module for having some fun with people. """
 
-import datetime
-import io
 import os
-import re
 import time
 import urllib
 from asyncio import sleep
 from collections import deque
 from random import choice, getrandbits, randint
 from re import sub
-from urllib.request import urlopen
 
 import requests
-from bs4 import BeautifulSoup
 from cowpy import cow
-from PIL import Image
-from telethon.tl.functions.account import UpdateNotifySettingsRequest
-from telethon.tl.types import MessageMediaPhoto
 
 from userbot import CMD_HELP, LOGS, bot
 from userbot.events import register
@@ -1438,13 +1430,13 @@ async def gtfo(e):
 @register(outgoing=True, pattern="^.nih$")
 async def nih(e):
     if not e.text[0].isalpha() and e.text[0] not in ("/", "#", "@", "!"):
-        await e.edit("`\n(\_/)`"
+        await e.edit("`\n(\\_/)`"
                      "`\n(●_●)`"
                      "`\n />🌹 *ini buat kamu`"
                      "`\n                    `"
-                     "`\n(\_/)`"
+                     "`\n(\\_/)`"
                      "`\n(●_●)`"
-                     "`\n🌹<\  *tapi boong`")
+                     "`\n🌹<\\  *tapi boong`")
 
 
 @register(outgoing=True, pattern="^.fag$")
@@ -1462,7 +1454,7 @@ async def gtfo(e):
 @register(outgoing=True, pattern="^.taco$")
 async def taco(e):
     if not e.text[0].isalpha() and e.text[0] not in ("/", "#", "@", "!"):
-        await e.edit("\n{\__/}" "\n(●_●)" "\n( >🌮 Want a taco?")
+        await e.edit("\n{\\__/}" "\n(●_●)" "\n( >🌮 Want a taco?")
 
 
 @register(outgoing=True, pattern="^.gey$")

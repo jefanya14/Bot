@@ -3,7 +3,7 @@ try:
 except ImportError:
     raise AttributeError
 
-from sqlalchemy import Column, LargeBinary, Numeric, UnicodeText
+from sqlalchemy import Column, Numeric, UnicodeText
 
 
 class Snips(BASE):

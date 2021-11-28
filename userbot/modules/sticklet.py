@@ -66,7 +66,7 @@ async def sticklet(event):
     # cleanup
     try:
         os.remove(FONT_FILE)
-    except:
+    except BaseException:
         pass
 
 

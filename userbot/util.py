@@ -25,7 +25,7 @@ def admin_cmd(**args):
 
     # get the pattern from the decorator
     if pattern is not None:
-        if pattern.startswith("\#"):
+        if pattern.startswith("\\#"):
             # special fix for snip.py
             args["pattern"] = re.compile(pattern)
         else:

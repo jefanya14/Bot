@@ -11,7 +11,7 @@ from userbot import CMD_HELP, TEMP_DOWNLOAD_DIRECTORY
 from userbot.events import register
 
 
-@register(outgoing=True, pattern="^\.ts (.*)")
+@register(outgoing=True, pattern="^\\.ts (.*)")
 async def gengkapak(e):
     await e.edit("`Please wait, fetching results...`")
     query = e.pattern_match.group(1)
@@ -31,7 +31,7 @@ async def gengkapak(e):
                 run, r1["name"], r1["seeder"], r1["size"], r1["age"],
                 r1["magnet"])
             listdata = listdata + list1
-        except:
+        except BaseException:
             break
 
     if not listdata:

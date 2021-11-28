@@ -75,7 +75,7 @@ class Main:
     @staticmethod
     def dict_has_props(dic, props):
         for p in props:
-            if not p in dic:
+            if p not in dic:
                 return False
         return True
 
@@ -149,7 +149,7 @@ class Main:
         if cast:
             try:
                 r = cast(r)
-            except:
+            except BaseException:
                 r = None
         return r
 
@@ -251,7 +251,8 @@ class Main:
         parser = TheHTMLParser()
         parser.feed(html)
 
-        # The object is JSON, except any < is hex encoded, so use decode wrapper.
+        # The object is JSON, except any < is hex encoded, so use decode
+        # wrapper.
         jsobj = parser.result()
         cloud_settings = self.js_object_decode(jsobj)
 
@@ -295,7 +296,8 @@ class Main:
         self.log("Found mtime: %s" % (file_mtime), True)
 
         # A unique hash, appears to be SHA1, but unknown what is hashed.
-        # If how it is generated can be documented, could be used to verify download.
+        # If how it is generated can be documented, could be used to verify
+        # download.
         file_hash = file_info["hash"]
         self.log("Found hash: %s" % (file_hash), True)
 
@@ -380,7 +382,7 @@ class Main:
             self.log("Output dir: %s" % (out_dir))
 
         file_name = self.create_file_name(None)
-        if not file_name is None:
+        if file_name is not None:
             self.log("Output file: %s" % (file_name))
             self.assert_not_exists(os.path.join(out_dir, file_name))
 

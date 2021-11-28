@@ -90,7 +90,7 @@ async def zippy_share(url: str) -> str:
         js_script = bs_obj.find("div", {
             "class": "center",
         }).find_all("script")[1]
-    except:
+    except BaseException:
         js_script = bs_obj.find("div", {
             "class": "right",
         }).find_all("script")[0]

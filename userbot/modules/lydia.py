@@ -14,9 +14,8 @@ import asyncio
 
 from coffeehouse.api import API
 from coffeehouse.lydia import LydiaAI
-from telethon import events
 
-from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, LYDIA_API_KEY, bot
+from userbot import CMD_HELP, LYDIA_API_KEY
 from userbot.events import register
 
 # Non-SQL Mode
@@ -39,7 +38,7 @@ async def repcf(event):
     await event.edit("Processing...")
     try:
         session = lydia.create_session()
-        session_id = session.id
+        session.id
         reply = await event.get_reply_message()
         msg = reply.text
         text_rep = session.think_thought(msg)
@@ -62,7 +61,7 @@ async def addcf(event):
     reply_msg = await event.get_reply_message()
     if reply_msg:
         session = lydia.create_session()
-        session_id = session.id
+        session.id
         if reply_msg.from_id is None:
             return await event.edit("Invalid user type.")
         ACC_LYDIA.update({(event.chat_id & reply_msg.from_id): session})
@@ -97,7 +96,7 @@ async def remcf(event):
 
 @register(incoming=True, disable_edited=True)
 async def user(event):
-    user_text = event.text
+    event.text
     try:
         session = ACC_LYDIA[event.chat_id & event.from_id]
         async with event.client.action(event.chat_id, "typing"):

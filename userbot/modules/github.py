@@ -4,15 +4,12 @@
 # you may not use this file except in compliance with the License.
 #
 
-import asyncio
 import os
 import time
 from datetime import datetime
 
 import aiohttp
 from github import Github
-from telethon import events
-from telethon.tl.types import DocumentAttributeVideo
 
 from userbot import CMD_HELP, GIT_REPO_NAME, GITHUB_ACCESS_TOKEN, bot
 from userbot.events import register
@@ -24,7 +21,7 @@ GIT_TEMP_DIR = "./userbot/temp/"
 async def github(event):
     username = event.pattern_match.group(1)
     URL = f"https://api.github.com/users/{username}"
-    chat = await event.get_chat()
+    await event.get_chat()
     async with aiohttp.ClientSession() as session, session.get(URL) as request:
         if request.status == 404:
             return await event.reply(f"`{username} not found`")
@@ -81,7 +78,7 @@ async def download(event):
     start = datetime.now()
     reply_message = await event.get_reply_message()
     try:
-        c_time = time.time()
+        time.time()
         print("Downloading to TEMP directory")
         downloaded_file_name = await bot.download_media(
             reply_message.media, GIT_TEMP_DIR)
@@ -129,7 +126,7 @@ async def git_commit(file_name, mone):
             await mone.edit(
                 f"`Commited On Your Github Repo`\n\n[Your Modules](https://github.com/{ccess}/tree/sql-extended/userbot/modules/)"
             )
-        except:
+        except BaseException:
             print("Cannot Create Plugin")
             await mone.edit("Cannot Upload Plugin")
     else:
