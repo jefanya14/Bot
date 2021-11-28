@@ -190,19 +190,16 @@ async def _(dyno):
     return os.remove("logs.txt")
 
 
-CMD_HELP.update({
-    "heroku":
-    ">.`usage`"
-    "\nUsage: Shows Heroku dyno hour stats."
-    "\n\n>`.set var <configvar> <value>`"
-    "\nUsage: Adds new ConfigVar or updates existing ConfigVar."
-    "\nBot will restart after using this command."
-    "\n\n>`.get var <configvar>[optional]`"
-    "\nUsage: Shows current values for specified or all ConfigVars."
-    "\nMake sure to run the command on a private group if you don't have Botlog set up."
-    "\n\n>`.del var <configvar>`"
-    "\nUsage: Removes specified ConfigVar."
-    "\nBot will restart after using this command."
-    "\n\n>`.logs`"
-    "\nUsage: Retrieves Heroku dyno logs."
-})
+CMD_HELP.update({"heroku": ">.`usage`"
+                 "\nUsage: Shows Heroku dyno hour stats."
+                 "\n\n>`.set var <configvar> <value>`"
+                 "\nUsage: Adds new ConfigVar or updates existing ConfigVar."
+                 "\nBot will restart after using this command."
+                 "\n\n>`.get var <configvar>[optional]`"
+                 "\nUsage: Shows current values for specified or all ConfigVars."
+                 "\nMake sure to run the command on a private group if you don't have Botlog set up."
+                 "\n\n>`.del var <configvar>`"
+                 "\nUsage: Removes specified ConfigVar."
+                 "\nBot will restart after using this command."
+                 "\n\n>`.logs`"
+                 "\nUsage: Retrieves Heroku dyno logs."})
