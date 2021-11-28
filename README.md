@@ -1,4 +1,4 @@
-[![DeepSource](https://deepsource.io/gh/jefanya14/jefanyabot.svg/?label=active+issues)](https://deepsource.io/gh/jefanya14/jefanyabot/?ref=repository-badge)
+[![DeepSource](https://deepsource.io/gh/jefanya14/Bot.svg/?label=active+issues)](https://deepsource.io/gh/jefanya14/Bot/?ref=repository-badge)
 ![Last Commit](https://img.shields.io/github/last-commit/jefanya14/Bot/sql-extended) ![Contributors](https://img.shields.io/github/contributors/jefanya14/Bot?color=LightSlateGrey)
 
 ```
