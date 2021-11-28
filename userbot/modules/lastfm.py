@@ -120,7 +120,6 @@ async def artist_and_song(track):
 async def get_curr_track(lfmbio):
     global ARTIST
     global SONG
-    global LASTFMCHECK
     global RUNNING
     global USER_ID
     oldartist = ""
