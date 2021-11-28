@@ -6,7 +6,7 @@
 """ Userbot start point """
 
 from importlib import import_module
-from sys import argv
+from sys import argv, exit
 
 from telethon.errors.rpcerrorlist import PhoneNumberInvalidError
 from userbot import LOGS, bot, OUBnew_VER, CODENAME

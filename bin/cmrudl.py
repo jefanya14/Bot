@@ -385,7 +385,7 @@ class Main(object):
                 "download": url
             }
             print(json.dumps(meta))
-            exit(0)
+            sys.exit(0)
 
         # Download with progress info, adding new line to clear after.
         try:

@@ -7,7 +7,7 @@
 
 import os
 
-from sys import version_info
+from sys import version_info, exit
 from logging import basicConfig, getLogger, INFO, DEBUG
 from distutils.util import strtobool as sb
 
@@ -39,7 +39,7 @@ if version_info[0] < 3 or version_info[1] < 8:
         "You MUST have a python version of at least 3.8."
         "Multiple features depend on this. Bot quitting."
     )
-    quit(1)
+    exit(1)
 
 # Check if the config was edited by using the already used variable.
 # Basically, its the 'virginity check' for the config file ;)
@@ -49,7 +49,7 @@ if CONFIG_CHECK:
     LOGS.info(
         "Please remove the line mentioned in the first hashtag from the config.env file"
     )
-    quit(1)
+    exit(1)
 
 # Telegram App KEY and HASH
 API_KEY = os.environ.get("API_KEY", None)
@@ -216,13 +216,13 @@ async def check_botlog_chatid():
         LOGS.info(
             "You must set up the BOTLOG_CHATID variable in the config.env or environment variables, for the private error log storage to work."
         )
-        quit(1)
+        exit(1)
 
     elif not BOTLOG_CHATID and BOTLOG:
         LOGS.info(
             "You must set up the BOTLOG_CHATID variable in the config.env or environment variables, for the userbot logging feature to work."
         )
-        quit(1)
+        exit(1)
 
     elif not (BOTLOG and LOGSPAMMER):
         return
@@ -233,7 +233,7 @@ async def check_botlog_chatid():
             "Your account doesn't have rights to send messages to BOTLOG_CHATID "
             "group. Check if you typed the Chat ID correctly."
         )
-        quit(1)
+        exit(1)
 
 
 with bot:
@@ -244,7 +244,7 @@ with bot:
             "BOTLOG_CHATID environment variable isn't a "
             "valid entity. Check your environment variables/config.env file."
         )
-        quit(1)
+        exit(1)
 
 # Userbot ver/tag/codename
 OUBnew_VER = "4.6"
