@@ -28,5 +28,5 @@ async def help(event):
                  \n**Usage:** `.help` <module name>\n\n"
         for i in CMD_HELP:
             string += "`" + str(i)
-            string += "`\t\t\t•\t\t\t "
+            string += "`\t\t\t•\t\t\t\n "
         await event.edit(f"{string[:-5]}")
