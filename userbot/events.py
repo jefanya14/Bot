@@ -3,7 +3,8 @@
 # Licensed under the Raphielscape Public License, Version 1.c (the "License");
 # you may not use this file except in compliance with the License.
 #
-"""Userbot module for managing events. One of the main components of the userbot."""
+""" Userbot module for managing events.
+ One of the main components of the userbot. """
 
 import sys
 from asyncio import create_subprocess_shell as asyncsubshell
@@ -15,12 +16,11 @@ from traceback import format_exc
 from telethon import events
 
 from userbot import BOTLOG_CHATID, LOGSPAMMER, bot
-from userbot.utils.pastebin import PasteBin
 
 
 def register(**args):
     """Register a new event."""
-    pattern = args.get("pattern", None)
+    pattern = args.get("pattern")
     disable_edited = args.get("disable_edited", False)
     ignore_unsafe = args.get("ignore_unsafe", False)
     unsafe_pattern = r"^[^/!#@\$A-Za-z]"
@@ -50,9 +50,8 @@ def register(**args):
     if "insecure" in args:
         del args["insecure"]
 
-    if pattern:
-        if not ignore_unsafe:
-            args["pattern"] = pattern.replace("^.", unsafe_pattern, 1)
+    if pattern and not ignore_unsafe:
+        args["pattern"] = pattern.replace("^.", unsafe_pattern, 1)
 
     def decorator(func):
         async def wrapper(check):
@@ -61,9 +60,9 @@ def register(**args):
                 # Ignore edits that take place in channels.
                 return
             if not LOGSPAMMER:
-                send_to = check.chat_id
+                pass
             else:
-                send_to = BOTLOG_CHATID
+                pass
 
             if not trigger_on_fwd and check.fwd_from:
                 return
@@ -71,15 +70,6 @@ def register(**args):
             if groups_only and not check.is_group:
                 await check.respond("`I don't think this is a group.`")
                 return
-
-            try:
-                from userbot.modules.sql_helper.blacklist_sql import get_blacklist
-
-                for blacklisted in get_blacklist():
-                    if str(check.chat_id) == blacklisted.chat_id:
-                        return
-            except Exception:
-                pass
 
             if check.via_bot_id and not insecure and check.out:
                 return
@@ -93,8 +83,7 @@ def register(**args):
 
             except events.StopPropagation:
                 raise events.StopPropagation
-            # This is a gay exception and must be passed out. So that it doesnt
-            # spam chats
+            # This is a gay exception and must be passed out. So that it doesnt spam chats
             except KeyboardInterrupt:
                 pass
             except BaseException:
@@ -107,7 +96,10 @@ def register(**args):
                     date = strftime("%Y-%m-%d %H:%M:%S", gmtime())
 
                     text = "**USERBOT ERROR REPORT**\n"
-                    text += "Nothing is logged except the fact of error and date."
+                    link = "[here](https://t.me/heinzdf)"
+                    text += "If you want to, you can report it"
+                    text += f"- just forward this message to {link}.\n"
+                    text += "Nothing is logged except the fact of error and date\n"
 
                     ftext = "========== DISCLAIMER =========="
                     ftext += "\nThis file uploaded ONLY here,"
@@ -115,6 +107,7 @@ def register(**args):
                     ftext += "\nwe respect your privacy,"
                     ftext += "\nyou may not report this error if you've"
                     ftext += "\nany confidential data here, no one will see your data\n"
+                    ftext += "\nSUPPORT CHAT PM: @heinzdf\n"
                     ftext += "================================\n\n"
                     ftext += "--------BEGIN USERBOT TRACEBACK LOG--------\n"
                     ftext += "\nDate: " + date
@@ -132,30 +125,33 @@ def register(**args):
 
                     ftext += "\n\n\nLast 10 commits:\n"
 
-                    process = await asyncsubshell(
-                        command, stdout=asyncsub.PIPE, stderr=asyncsub.PIPE
-                    )
+                    process = await asyncsubshell(command,
+                                                  stdout=asyncsub.PIPE,
+                                                  stderr=asyncsub.PIPE)
                     stdout, stderr = await process.communicate()
-                    result = str(stdout.decode().strip()) + str(stderr.decode().strip())
+                    result = str(stdout.decode().strip()) + str(
+                        stderr.decode().strip())
 
                     ftext += result
 
-                    with open("error.txt", "w+") as file:
-                        file.write(ftext)
+                    file = open("error.log", "w+")
+                    file.write(ftext)
+                    file.close()
 
                     if LOGSPAMMER:
-                        await check.respond(
-                            "`Sorry, my userbot has crashed."
-                            "\nThe error logs are stored in the userbot's log chat.`"
+                        await check.client.send_file(
+                            BOTLOG_CHATID,
+                            "error.log",
+                            caption=text,
+                        )
+                    else:
+                        await check.client.send_file(
+                            check.chat_id,
+                            "error.log",
+                            caption=text,
                         )
 
-                        async with PasteBin(ftext) as client:
-                            await client.post()
-                            if client:
-                                text += f"\n\nPasted to : [URL]({client.raw_link})"
-
-                        await check.client.send_file(send_to, "error.txt", caption=text)
-                        remove("error.txt")
+                    remove("error.log")
             else:
                 pass
 
