@@ -13,18 +13,18 @@ from datetime import datetime
 from os import remove
 from platform import python_version, uname
 from shutil import which
-from git import Repo
 
 import psutil
+from git import Repo
 from telethon import __version__, version
 
 from userbot import (
-    CMD_HELP,
     ALIVE_NAME,
+    CMD_HELP,
+    CODENAME,
     LOGO,
     UPSTREAM_REPO_BRANCH,
     OUBnew_VER,
-    CODENAME,
     bot,
 )
 from userbot.events import register
@@ -54,10 +54,10 @@ async def psu(event):
     softw += f"`Boot Time: {bt.day}/{bt.month}/{bt.year}  {bt.hour}:{bt.minute}:{bt.second}`\n"
     # CPU Cores
     cpuu = "**CPU Info**\n"
-    cpuu += "`Physical cores   : " + \
-        str(psutil.cpu_count(logical=False)) + "`\n"
-    cpuu += "`Total cores      : " + \
-        str(psutil.cpu_count(logical=True)) + "`\n"
+    cpuu += "`Physical cores   : " + str(
+        psutil.cpu_count(logical=False)) + "`\n"
+    cpuu += "`Total cores      : " + str(
+        psutil.cpu_count(logical=True)) + "`\n"
     # CPU frequencies
     cpufreq = psutil.cpu_freq()
     cpuu += f"`Max Frequency    : {cpufreq.max:.2f}Mhz`\n"
@@ -108,11 +108,15 @@ async def sysdetails(sysd):
     if not sysd.text[0].isalpha() and sysd.text[0] not in ("/", "#", "@", "!"):
         try:
             fetch = await asyncrunapp(
-                "neofetch", "--stdout", stdout=asyncPIPE, stderr=asyncPIPE,
+                "neofetch",
+                "--stdout",
+                stdout=asyncPIPE,
+                stderr=asyncPIPE,
             )
 
             stdout, stderr = await fetch.communicate()
-            result = str(stdout.decode().strip()) + str(stderr.decode().strip())
+            result = str(stdout.decode().strip()) + str(
+                stderr.decode().strip())
 
             await sysd.edit("`" + result + "`")
         except FileNotFoundError:
@@ -128,23 +132,35 @@ async def bot_ver(event):
     """ For .botver command, get the bot version. """
     if which("git") is not None:
         invokever = "git describe --all --long"
-        ver = await asyncrunapp(invokever, stdout=asyncPIPE, stderr=asyncPIPE,)
+        ver = await asyncrunapp(
+            invokever,
+            stdout=asyncPIPE,
+            stderr=asyncPIPE,
+        )
         stdout, stderr = await ver.communicate()
         verout = str(stdout.decode().strip()) + str(stderr.decode().strip())
 
         invokerev = "git rev-list --all --count"
-        rev = await asyncrunapp(invokerev, stdout=asyncPIPE, stderr=asyncPIPE,)
+        rev = await asyncrunapp(
+            invokerev,
+            stdout=asyncPIPE,
+            stderr=asyncPIPE,
+        )
         stdout, stderr = await rev.communicate()
         revout = str(stdout.decode().strip()) + str(stderr.decode().strip())
 
-        await event.edit(
-            "`Userbot Version: " f"{verout}" "` \n" "`Revision: " f"{revout}" "`"
-        )
+        await event.edit("`Userbot Version: "
+                         f"{verout}"
+                         "` \n"
+                         "`Revision: "
+                         f"{revout}"
+                         "`")
     else:
         await event.edit(
             f"Shame that you don't have git, You're running {VER} - '{CN}' anyway"
         )
-    if not event.text[0].isalpha() and event.text[0] not in ("/", "#", "@", "!"):
+    if not event.text[0].isalpha() and event.text[0] not in ("/", "#", "@",
+                                                             "!"):
         if which("git") is not None:
             ver = await asyncrunapp(
                 "git",
@@ -155,7 +171,8 @@ async def bot_ver(event):
                 stderr=asyncPIPE,
             )
             stdout, stderr = await ver.communicate()
-            verout = str(stdout.decode().strip()) + str(stderr.decode().strip())
+            verout = str(stdout.decode().strip()) + str(
+                stderr.decode().strip())
 
             rev = await asyncrunapp(
                 "git",
@@ -166,11 +183,15 @@ async def bot_ver(event):
                 stderr=asyncPIPE,
             )
             stdout, stderr = await rev.communicate()
-            revout = str(stdout.decode().strip()) + str(stderr.decode().strip())
+            revout = str(stdout.decode().strip()) + str(
+                stderr.decode().strip())
 
-            await event.edit(
-                "`Userbot Version: " f"{verout}" "` \n" "`Revision: " f"{revout}" "`"
-            )
+            await event.edit("`Userbot Version: "
+                             f"{verout}"
+                             "` \n"
+                             "`Revision: "
+                             f"{revout}"
+                             "`")
         else:
             await event.edit(
                 "Shame that you don't have git, you're running - 'v1.beta.4' anyway!"
@@ -189,11 +210,16 @@ async def pipcheck(pip):
         if pipmodule:
             await pip.edit("`Searching . . .`")
             pipc = await asyncrunapp(
-                "pip3", "search", pipmodule, stdout=asyncPIPE, stderr=asyncPIPE,
+                "pip3",
+                "search",
+                pipmodule,
+                stdout=asyncPIPE,
+                stderr=asyncPIPE,
             )
 
             stdout, stderr = await pipc.communicate()
-            pipout = str(stdout.decode().strip()) + str(stderr.decode().strip())
+            pipout = str(stdout.decode().strip()) + str(
+                stderr.decode().strip())
 
             if pipout:
                 if len(pipout) > 4096:
@@ -202,23 +228,21 @@ async def pipcheck(pip):
                     file.write(pipout)
                     file.close()
                     await pip.client.send_file(
-                        pip.chat_id, "output.txt", reply_to=pip.id,
+                        pip.chat_id,
+                        "output.txt",
+                        reply_to=pip.id,
                     )
                     remove("output.txt")
                     return
-                await pip.edit(
-                    "**Query: **\n`"
-                    f"pip3 search {pipmodule}"
-                    "`\n**Result: **\n`"
-                    f"{pipout}"
-                    "`"
-                )
+                await pip.edit("**Query: **\n`"
+                               f"pip3 search {pipmodule}"
+                               "`\n**Result: **\n`"
+                               f"{pipout}"
+                               "`")
             else:
-                await pip.edit(
-                    "**Query: **\n`"
-                    f"pip3 search {pipmodule}"
-                    "`\n**Result: **\n`No Result Returned/False`"
-                )
+                await pip.edit("**Query: **\n`"
+                               f"pip3 search {pipmodule}"
+                               "`\n**Result: **\n`No Result Returned/False`")
         else:
             await pip.edit("`Use .help pip to see an example`")
 
@@ -231,18 +255,16 @@ async def amireallyalive(alive):
         return
     """ For .alive command, check if the bot is running.  """
     logo = LOGO
-    output = (
-        f"running on __{UPSTREAM_REPO_BRANCH}__ \n"
-        "----------------------------------------\n"
-        "`Bot Version Info` \n"
-        f"`CODENAME       : {CN} v{VER} `\n"
-        f"`Telethon       : v{version.__version__} `\n"
-        f"`Python         : v{python_version()} `\n"
-        "----------------------------------------\n"
-        f"`User           : `{DEFAULTUSER} \n"
-        f"`Module loaded  : `{len(modules)} \n\n"
-        f"`All modules loaded with ({MODULESTR}) errors`"
-    )
+    output = (f"running on __{UPSTREAM_REPO_BRANCH}__ \n"
+              "----------------------------------------\n"
+              "`Bot Version Info` \n"
+              f"`CODENAME       : {CN} v{VER} `\n"
+              f"`Telethon       : v{version.__version__} `\n"
+              f"`Python         : v{python_version()} `\n"
+              "----------------------------------------\n"
+              f"`User           : `{DEFAULTUSER} \n"
+              f"`Module loaded  : `{len(modules)} \n\n"
+              f"`All modules loaded with ({MODULESTR}) errors`")
     await bot.send_file(alive.chat_id, logo, caption=output)
     await alive.delete()
 
@@ -277,16 +299,16 @@ async def amireallyalivereset(ureset):
 
 
 CMD_HELP.update({
-    "sysd": "`.sysd`"
+    "sysd":
+    "`.sysd`"
     "\nUsage: Shows system information using neofetch."
     "\n\n`.spc`"
-    "\nUsage: Show system specification.",})
-CMD_HELP.update({
-    "botver": "`.botver`"
-    "\nUsage: Shows the userbot version."})
-CMD_HELP.update({
-    "pip": "`.pip` <module(s)>"
-    "\nUsage: Does a search of pip modules(s)."})
+    "\nUsage: Show system specification.",
+})
+CMD_HELP.update({"botver": "`.botver`" "\nUsage: Shows the userbot version."})
+CMD_HELP.update(
+    {"pip": "`.pip` <module(s)>"
+     "\nUsage: Does a search of pip modules(s)."})
 CMD_HELP.update({
     "on":
     "`.live` | `.on`"

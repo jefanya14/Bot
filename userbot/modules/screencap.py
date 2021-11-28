@@ -1,6 +1,8 @@
 import io
+
 import requests
 from telethon import events
+
 from userbot import CMD_HELP, SS_LAYER_KEY, bot
 from userbot.events import register
 
@@ -18,8 +20,8 @@ async def _(event):
     sample_url = "https://api.screenshotlayer.com/api/capture?access_key={}&url={}&fullpage={}&viewport={}&format={}&force={}"
     input_str = event.pattern_match.group(1)
     response_api = requests.get(
-        sample_url.format(SS_LAYER_KEY, input_str, "1", "2560x1440", "PNG", "1")
-    )
+        sample_url.format(SS_LAYER_KEY, input_str, "1", "2560x1440", "PNG",
+                          "1"))
     # https://stackoverflow.com/a/23718458/4723940
     contentType = response_api.headers["content-type"]
     if "image" in contentType:
@@ -41,8 +43,5 @@ async def _(event):
 
 
 CMD_HELP.update(
-    {
-        "screencap": ".capscr <url> \
-    \nUsage get screenshot the url"
-    }
-)
+    {"screencap": ".capscr <url> \
+    \nUsage get screenshot the url"})

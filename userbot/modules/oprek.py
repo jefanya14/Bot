@@ -2,7 +2,8 @@
 
 from telethon import events
 from telethon.errors.rpcerrorlist import YouBlockedUserError
-from userbot import bot, CMD_HELP
+
+from userbot import CMD_HELP, bot
 from userbot.events import register
 
 
@@ -16,8 +17,7 @@ async def _(event):
         firmware = "firmware"
         try:
             response = conv.wait_event(
-                events.NewMessage(incoming=True, from_users=774181428)
-            )
+                events.NewMessage(incoming=True, from_users=774181428))
             await conv.send_message(f"/{firmware} {link}")
             response = await response
         except YouBlockedUserError:
@@ -38,8 +38,7 @@ async def _(event):
         mieu = "eu"
         try:
             response = conv.wait_event(
-                events.NewMessage(incoming=True, from_users=774181428)
-            )
+                events.NewMessage(incoming=True, from_users=774181428))
             await conv.send_message(f"/{mieu} {link}")
             response = await response
         except YouBlockedUserError:
@@ -60,8 +59,7 @@ async def _(event):
         fboot = "fastboot"
         try:
             response = conv.wait_event(
-                events.NewMessage(incoming=True, from_users=774181428)
-            )
+                events.NewMessage(incoming=True, from_users=774181428))
             await conv.send_message(f"/{fboot} {link}")
             response = await response
         except YouBlockedUserError:
@@ -82,8 +80,7 @@ async def _(event):
         recovery = "recovery"
         try:
             response = conv.wait_event(
-                events.NewMessage(incoming=True, from_users=774181428)
-            )
+                events.NewMessage(incoming=True, from_users=774181428))
             await conv.send_message(f"/{recovery} {link}")
             response = await response
         except YouBlockedUserError:
@@ -104,8 +101,7 @@ async def _(event):
         spec = "specs"
         try:
             response = conv.wait_event(
-                events.NewMessage(incoming=True, from_users=774181428)
-            )
+                events.NewMessage(incoming=True, from_users=774181428))
             await conv.send_message(f"/{spec} {link}")
             response = await response
         except YouBlockedUserError:
@@ -126,8 +122,7 @@ async def _(event):
         pitch = "pb"
         try:
             response = conv.wait_event(
-                events.NewMessage(incoming=True, from_users=774181428)
-            )
+                events.NewMessage(incoming=True, from_users=774181428))
             await conv.send_message(f"/{pitch} {link}")
             response = await response
         except YouBlockedUserError:
@@ -148,8 +143,7 @@ async def _(event):
         ofox = "of"
         try:
             response = conv.wait_event(
-                events.NewMessage(incoming=True, from_users=774181428)
-            )
+                events.NewMessage(incoming=True, from_users=774181428))
             await conv.send_message(f"/{ofox} {link}")
             response = await response
         except YouBlockedUserError:
@@ -160,9 +154,9 @@ async def _(event):
             await bot.forward_messages(event.chat_id, response.message)
 
 
-CMD_HELP.update(
-    {
-        "oprek": "For Xiaomeme devices only!\
+CMD_HELP.update({
+    "oprek":
+    "For Xiaomeme devices only!\
 \n\n.firmware (codename)\
      \nUsage : Get lastest Firmware\
 \n\n.pb (codename)\
@@ -175,5 +169,4 @@ CMD_HELP.update(
      \nUsage : Get latest recovery MIUI\
 \n\n.of (codename)\
      \nUsage : Get latest ORangeFox Recovery"
-    }
-)
+})

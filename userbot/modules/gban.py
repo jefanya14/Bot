@@ -3,10 +3,12 @@ Group Administrations bots where you are SUDO
 Available Commands:
 .gban REASON
 .ungban REASON"""
-from telethon import events
 import asyncio
+
+from telethon import events
+
+from userbot import ALIVE_NAME, CMD_HELP, G_BAN_LOGGER_GROUP, bot
 from userbot.events import register
-from userbot import bot, CMD_HELP, G_BAN_LOGGER_GROUP, ALIVE_NAME
 
 # imported from uniborg by @heyworld
 
@@ -57,12 +59,11 @@ async def _(event):
     await event.reply(f"**user ungbanned by** `{DEFAULTUSER} `")
 
 
-CMD_HELP.update(
-    {
-        "gban": "\
+CMD_HELP.update({
+    "gban":
+    "\
 `.gban reason`\
 \nUsage: Globally Ban users from all the Group Administrations bots where you are SUDO.\
 \n\n`.ungban reason`\
 \nUsage: Globally unBan users from all the Group Administrations bots where you are SUDO"
-    }
-)
+})

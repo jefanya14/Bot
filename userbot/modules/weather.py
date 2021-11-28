@@ -5,25 +5,26 @@
 #
 """ Userbot module for getting the weather of a city. """
 
-
 import json
-from requests import get
 from datetime import datetime
+
+from pytz import country_names as c_n
 from pytz import country_timezones as c_tz
 from pytz import timezone as tz
-from pytz import country_names as c_n
+from requests import get
 
-from userbot import CMD_HELP, WEATHER_DEFCITY
+from userbot import CMD_HELP
 from userbot import OPEN_WEATHER_MAP_APPID as OWM_API
+from userbot import WEATHER_DEFCITY
 from userbot.events import register
 
 # ===== CONSTANT =====
 DEFCITY = WEATHER_DEFCITY if WEATHER_DEFCITY else None
+
+
 # ====================
-
-
 async def get_tz(con):
-    """ Get time zone of the given country. """
+    """Get time zone of the given country."""
     """ Credits: @aragon12 and @zakaryan2004. """
     for c_code in c_n:
         if con == c_n[c_code]:
@@ -37,10 +38,11 @@ async def get_tz(con):
 
 @register(outgoing=True, pattern="^.weather(?: |$)(.*)")
 async def get_weather(weather):
-    """ For .weather command, gets the current weather of a city. """
+    """For .weather command, gets the current weather of a city."""
 
     if not OWM_API:
-        await weather.edit("`Get an API key from` https://openweathermap.org/ `first.`")
+        await weather.edit(
+            "`Get an API key from` https://openweathermap.org/ `first.`")
         return
 
     APPID = OWM_API
@@ -57,8 +59,7 @@ async def get_weather(weather):
 
     timezone_countries = {
         timezone: country
-        for country, timezones in c_tz.items()
-        for timezone in timezones
+        for country, timezones in c_tz.items() for timezone in timezones
     }
 
     if "," in CITY:
@@ -120,21 +121,19 @@ async def get_weather(weather):
 
     await weather.edit(
         f"**Temperature:** `{celsius(curtemp)}°C | {fahrenheit(curtemp)}°F`\n"
-        + f"**Min. Temp.:** `{celsius(min_temp)}°C | {fahrenheit(min_temp)}°F`\n"
-        + f"**Max. Temp.:** `{celsius(max_temp)}°C | {fahrenheit(max_temp)}°F`\n"
-        + f"**Humidity:** `{humidity}%`\n"
-        + f"**Wind:** `{kmph[0]} kmh | {mph[0]} mph, {findir}`\n"
-        + f"**Sunrise:** `{sun(sunrise)}`\n"
-        + f"**Sunset:** `{sun(sunset)}`\n\n"
-        + f"**{desc}**\n"
-        + f"`{cityname}, {fullc_n}`\n"
-        + f"`{time}`"
-    )
+        +
+        f"**Min. Temp.:** `{celsius(min_temp)}°C | {fahrenheit(min_temp)}°F`\n"
+        +
+        f"**Max. Temp.:** `{celsius(max_temp)}°C | {fahrenheit(max_temp)}°F`\n"
+        + f"**Humidity:** `{humidity}%`\n" +
+        f"**Wind:** `{kmph[0]} kmh | {mph[0]} mph, {findir}`\n" +
+        f"**Sunrise:** `{sun(sunrise)}`\n" +
+        f"**Sunset:** `{sun(sunset)}`\n\n" + f"**{desc}**\n" +
+        f"`{cityname}, {fullc_n}`\n" + f"`{time}`")
 
 
-CMD_HELP.update(
-    {
-        "weather": ".weather <city> or .weather <city>, <country name/code>\
+CMD_HELP.update({
+    "weather":
+    ".weather <city> or .weather <city>, <country name/code>\
     \nUsage: Gets the weather of a city."
-    }
-)
+})

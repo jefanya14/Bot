@@ -11,7 +11,7 @@ from userbot.events import register
 
 @register(outgoing=True, pattern="^.help(?: |$)(.*)")
 async def help(event):
-    """ For .help command,"""
+    """For .help command,"""
     args = event.pattern_match.group(1).lower()
     # Prevent Channel Bug to get any information and commad from all modules
     if event.is_channel and not event.is_group:
@@ -26,6 +26,7 @@ async def help(event):
         string = "**List of all loaded module(s)**\n\
                  \nSpecify which module do you want help for! \
                  \n**Usage:** `.help` <module name>\n\n"
+
         for i in CMD_HELP:
             string += "`" + str(i)
             string += "`\t\t\t•\t\t\t\n "

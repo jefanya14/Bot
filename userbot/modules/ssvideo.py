@@ -9,6 +9,7 @@ import os
 import time
 
 from telethon.tl.types import DocumentAttributeFilename
+
 from userbot import CMD_HELP, bot
 from userbot.events import register
 from userbot.utils import progress
@@ -31,8 +32,7 @@ async def ssvideo(framecap):
             or (DocumentAttributeFilename(file_name="AnimatedSticker.tgs")
                 in reply_message.media.document.attributes)
             or (DocumentAttributeFilename(file_name="sticker.webp")
-                in reply_message.media.document.attributes)
-            ):
+                in reply_message.media.document.attributes)):
         return await framecap.edit("`Unsupported files!`")
     c_time = time.time()
     await framecap.edit("`Downloading media...`")
@@ -40,8 +40,7 @@ async def ssvideo(framecap):
         reply_message,
         "anu.mp4",
         progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
-            progress(d, t, framecap, c_time, "[DOWNLOAD]")
-        ),
+            progress(d, t, framecap, c_time, "[DOWNLOAD]")),
     )
     try:
         await framecap.edit("`Proccessing...`")
@@ -58,10 +57,9 @@ async def ssvideo(framecap):
     os.system("rm -rf *.png *.mp4")
 
 
-CMD_HELP.update(
-    {
-        "ssvideo": ".ssvideo <grid>\
+CMD_HELP.update({
+    "ssvideo":
+    ".ssvideo <grid>\
         \nUsage: Capture video frames by <grid> x <grid>.\
         \n*max grid is 10."
-    }
-)
+})

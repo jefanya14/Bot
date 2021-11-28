@@ -1,9 +1,11 @@
-from telethon import events
 import os
-from PIL import Image
 from datetime import datetime
-from telegraph import Telegraph, upload_file, exceptions
-from userbot import TEMP_DOWNLOAD_DIRECTORY, BOTLOG_CHATID, CMD_HELP, bot
+
+from PIL import Image
+from telegraph import Telegraph, exceptions, upload_file
+from telethon import events
+
+from userbot import BOTLOG_CHATID, CMD_HELP, TEMP_DOWNLOAD_DIRECTORY, bot
 from userbot.events import register
 
 telegraph = Telegraph()
@@ -13,7 +15,7 @@ auth_url = r["auth_url"]
 
 @register(outgoing=True, pattern="^.telegraph (media|text)$")
 async def telegraphs(graph):
-    """ For .telegraph command, upload media & text to telegraph site. """
+    """For .telegraph command, upload media & text to telegraph site."""
     if graph.text[0].isalpha() or graph.text[0] in ("/", "#", "@", "!"):
         return
     if graph.fwd_from:
@@ -26,13 +28,11 @@ async def telegraphs(graph):
         input_str = graph.pattern_match.group(1)
         if input_str == "media":
             downloaded_file_name = await bot.download_media(
-                r_message, TEMP_DOWNLOAD_DIRECTORY
-            )
+                r_message, TEMP_DOWNLOAD_DIRECTORY)
             end = datetime.now()
             ms = (end - start).seconds
-            await graph.edit(
-                "Downloaded to {} in {} seconds.".format(downloaded_file_name, ms)
-            )
+            await graph.edit("Downloaded to {} in {} seconds.".format(
+                downloaded_file_name, ms))
             if downloaded_file_name.endswith((".webp")):
                 resize_image(downloaded_file_name)
             try:
@@ -47,8 +47,7 @@ async def telegraphs(graph):
                 os.remove(downloaded_file_name)
                 await graph.edit(
                     "Uploaded to https://telegra.ph{} in {} seconds.".format(
-                        media_urls[0], (ms + ms_two)
-                    ),
+                        media_urls[0], (ms + ms_two)),
                     link_preview=True,
                 )
         elif input_str == "text":
@@ -60,8 +59,7 @@ async def telegraphs(graph):
                 if page_content != "":
                     title_of_page = page_content
                 downloaded_file_name = await bot.download_media(
-                    r_message, TEMP_DOWNLOAD_DIRECTORY
-                )
+                    r_message, TEMP_DOWNLOAD_DIRECTORY)
                 m_list = None
                 with open(downloaded_file_name, "rb") as fd:
                     m_list = fd.readlines()
@@ -69,17 +67,18 @@ async def telegraphs(graph):
                     page_content += m.decode("UTF-8") + "\n"
                 os.remove(downloaded_file_name)
             page_content = page_content.replace("\n", "<br>")
-            response = telegraph.create_page(title_of_page, html_content=page_content)
+            response = telegraph.create_page(title_of_page,
+                                             html_content=page_content)
             end = datetime.now()
             ms = (end - start).seconds
             await graph.edit(
                 "Pasted to https://telegra.ph/{} in {} seconds.".format(
-                    response["path"], ms
-                ),
+                    response["path"], ms),
                 link_preview=True,
             )
     else:
-        await graph.edit("Reply to a message to get a permanent telegra.ph link.")
+        await graph.edit(
+            "Reply to a message to get a permanent telegra.ph link.")
 
 
 def resize_image(image):
@@ -87,9 +86,8 @@ def resize_image(image):
     im.save(image, "PNG")
 
 
-CMD_HELP.update(
-    {
-        "telegraph": ">`.telegraph media | text`\
+CMD_HELP.update({
+    "telegraph":
+    ">`.telegraph media | text`\
         \nUsage: Upload text & media on Telegraph."
-    }
-)
+})

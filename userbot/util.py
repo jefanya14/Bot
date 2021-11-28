@@ -2,9 +2,9 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-import re
 import math
 import os
+import re
 import time
 
 from telethon import events
@@ -61,7 +61,8 @@ async def is_read(borg, entity, message, is_out=None):
     """
     is_out = getattr(message, "out", is_out)
     if not isinstance(is_out, bool):
-        raise ValueError("Message was id but is_out not provided or not a bool")
+        raise ValueError(
+            "Message was id but is_out not provided or not a bool")
     message_id = getattr(message, "id", message)
     if not isinstance(message_id, int):
         raise ValueError("Failed to extract id from message")
@@ -88,8 +89,8 @@ async def progress(current, total, event, start, type_of_ps):
             round(percentage, 2),
         )
         tmp = progress_str + "{0} of {1}\nETA: {2}".format(
-            humanbytes(current), humanbytes(total), time_formatter(estimated_total_time)
-        )
+            humanbytes(current), humanbytes(total),
+            time_formatter(estimated_total_time))
         await event.edit("{}\n {}".format(type_of_ps, tmp))
 
 
@@ -100,7 +101,7 @@ def humanbytes(size):
     if not size:
         return ""
     # 2 ** 10 = 1024
-    power = 2 ** 10
+    power = 2**10
     raised_to_pow = 0
     dict_power_n = {0: "", 1: "Ki", 2: "Mi", 3: "Gi", 4: "Ti"}
     while size > power:
@@ -116,11 +117,9 @@ def time_formatter(milliseconds: int) -> str:
     minutes, seconds = divmod(seconds, 60)
     hours, minutes = divmod(minutes, 60)
     days, hours = divmod(hours, 24)
-    tmp = (
-        ((str(days) + "d, ") if days else "")
-        + ((str(hours) + "h, ") if hours else "")
-        + ((str(minutes) + "m, ") if minutes else "")
-        + ((str(seconds) + "s, ") if seconds else "")
-        + ((str(milliseconds) + "ms, ") if milliseconds else "")
-    )
+    tmp = (((str(days) + "d, ") if days else "") +
+           ((str(hours) + "h, ") if hours else "") +
+           ((str(minutes) + "m, ") if minutes else "") +
+           ((str(seconds) + "s, ") if seconds else "") +
+           ((str(milliseconds) + "ms, ") if milliseconds else ""))
     return tmp[:-2]

@@ -49,16 +49,13 @@ async def lst(event):
                 elif contents.endswith((".opus")):
                     files += "🎙 "
                 elif contents.endswith(
-                    (".mkv", ".mp4", ".webm", ".avi", ".mov", ".flv")
-                ):
+                        (".mkv", ".mp4", ".webm", ".avi", ".mov", ".flv")):
                     files += "🎞 "
                 elif contents.endswith(
-                    (".zip", ".tar", ".tar.gz", ".rar", ".7z", ".xz")
-                ):
+                        (".zip", ".tar", ".tar.gz", ".rar", ".7z", ".xz")):
                     files += "🗜 "
-                elif contents.endswith(
-                    (".jpg", ".jpeg", ".png", ".gif", ".bmp", ".ico", ".webp")
-                ):
+                elif contents.endswith((".jpg", ".jpeg", ".png", ".gif",
+                                        ".bmp", ".ico", ".webp")):
                     files += "🖼 "
                 elif contents.endswith((".exe", ".deb")):
                     files += "⚙️ "
@@ -85,7 +82,8 @@ async def lst(event):
             mode = "🎞 "
         elif path.endswith((".zip", ".tar", ".tar.gz", ".rar", ".7z", ".xz")):
             mode = "🗜 "
-        elif path.endswith((".jpg", ".jpeg", ".png", ".gif", ".bmp", ".ico", ".webp")):
+        elif path.endswith(
+                (".jpg", ".jpeg", ".png", ".gif", ".bmp", ".ico", ".webp")):
             mode = "🖼 "
         elif path.endswith((".exe", ".deb")):
             mode = "⚙️ "
@@ -184,8 +182,7 @@ async def zip_file(event):
                         zip_obj.write(files_path, arc_path)
             end_time = (datetime.now() - start_time).seconds
             await event.edit(
-                f"Zipped `{path}` into `{zip_path}` in `{end_time}` seconds."
-            )
+                f"Zipped `{path}` into `{zip_path}` in `{end_time}` seconds.")
         elif isfile(path):
             file_name = basename(path)
             zip_path = join(TEMP_DOWNLOAD_DIRECTORY, file_name) + ".zip"
@@ -208,7 +205,8 @@ async def unzip_file(event):
         os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
     input_str = event.pattern_match.group(1)
     file_name = basename(input_str)
-    output_path = TEMP_DOWNLOAD_DIRECTORY + re.split("(.zip|.rar)", file_name)[0]
+    output_path = TEMP_DOWNLOAD_DIRECTORY + re.split("(.zip|.rar)",
+                                                     file_name)[0]
     if exists(input_str):
         start_time = datetime.now()
         await event.edit("`Unzipping...`")
@@ -217,7 +215,8 @@ async def unzip_file(event):
         elif is_rarfile(input_str):
             zip_type = RarFile
         else:
-            return await event.edit("`Unsupported file types!`\n`ZIP and RAR only`")
+            return await event.edit(
+                "`Unsupported file types!`\n`ZIP and RAR only`")
         try:
             with zip_type(input_str, "r") as zip_obj:
                 zip_obj.extractall(output_path)
@@ -235,18 +234,17 @@ async def unzip_file(event):
         await event.edit("`404: Not Found`")
 
 
-CMD_HELP.update(
-    {
-        "file": ">`.ls` <directory>"
-        "\nUsage: Get list file inside directory."
-        "\n\n>`.rm` <directory/file>"
-        "\nUsage: Remove file or directory"
-        "\n\n>`.rn` <directory/file> | <new name>"
-        "\nUsage: Rename file or directory"
-        "\n\n>`.zip` <file/folder path> | <zip name> (optional)"
-        "\nUsage: For zipping file or folder."
-        "\n\n>`.unzip` <path to zip file>"
-        "\nUsage: For extracting archive file"
-        "\nOnly support ZIP and RAR file!"
-    }
-)
+CMD_HELP.update({
+    "file":
+    ">`.ls` <directory>"
+    "\nUsage: Get list file inside directory."
+    "\n\n>`.rm` <directory/file>"
+    "\nUsage: Remove file or directory"
+    "\n\n>`.rn` <directory/file> | <new name>"
+    "\nUsage: Rename file or directory"
+    "\n\n>`.zip` <file/folder path> | <zip name> (optional)"
+    "\nUsage: For zipping file or folder."
+    "\n\n>`.unzip` <path to zip file>"
+    "\nUsage: For extracting archive file"
+    "\nOnly support ZIP and RAR file!"
+})

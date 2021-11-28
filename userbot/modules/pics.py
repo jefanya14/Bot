@@ -1,15 +1,18 @@
-from io import BytesIO
-from userbot.events import register
-from userbot import CMD_HELP
-from telethon import types
 from asyncio import sleep
+from io import BytesIO
+
+from telethon import types
 from telethon.errors import PhotoInvalidDimensionsError
 from telethon.tl.functions.messages import SendMediaRequest
+
+from userbot import CMD_HELP
+from userbot.events import register
 
 
 @register(outgoing=True, pattern="^\.pic(?: |$)(.*)")
 async def on_file_to_photo(pics):
-    await pics.edit("Converting Document image to Full Size Image\nPlease wait...")
+    await pics.edit(
+        "Converting Document image to Full Size Image\nPlease wait...")
     await sleep(2.5)
     await pics.delete()
     target = await pics.get_reply_message()
@@ -37,14 +40,12 @@ async def on_file_to_photo(pics):
                 message=target.message,
                 entities=target.entities,
                 reply_to_msg_id=target.id,
-            )
-        )
+            ))
     except PhotoInvalidDimensionsError:
         return
 
 
-CMD_HELP.update(
-    {
-        "pics": ".pic reply any document image\nUsage : Convert any Document Image to Full Size Image"
-    }
-)
+CMD_HELP.update({
+    "pics":
+    ".pic reply any document image\nUsage : Convert any Document Image to Full Size Image"
+})

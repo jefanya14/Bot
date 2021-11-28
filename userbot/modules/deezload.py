@@ -28,19 +28,21 @@
 # requires: deezloader hachoir Pillow
 # Ported from UniBorg by AnggaR96s
 
-import deezloader
 import os
 import shutil
 import time
 
-from userbot.events import register
-from userbot import CMD_HELP, DEEZER_ARL_TOKEN, TEMP_DOWNLOAD_DIRECTORY
+import deezloader
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
 from telethon.tl.types import DocumentAttributeAudio
 
+from userbot import CMD_HELP, DEEZER_ARL_TOKEN, TEMP_DOWNLOAD_DIRECTORY
+from userbot.events import register
 
-@register(outgoing=True, pattern="^\.deez (.+?|) (FLAC|MP3\_320|MP3\_256|MP3\_128)")
+
+@register(outgoing=True,
+          pattern="^\.deez (.+?|) (FLAC|MP3\_320|MP3\_256|MP3\_128)")
 async def _(event):
     """DeezLoader by @An0nimia
     Ported for UniBorg by @SpEcHlDe"""
@@ -50,8 +52,10 @@ async def _(event):
     strings = {
         "name": "DeezLoad",
         "arl_token_cfg_doc": "ARL Token for Deezer",
-        "invalid_arl_token": "please set the required variables for this module",
-        "wrong_cmd_syntax": "bruh, now i think how far should we go. please terminate my Session!",
+        "invalid_arl_token":
+        "please set the required variables for this module",
+        "wrong_cmd_syntax":
+        "bruh, now i think how far should we go. please terminate my Session!",
         "server_error": "We're experiencing technical difficulties.",
         "processing": "`Downloading...`",
         "uploading": "`Uploading...`",
@@ -179,10 +183,9 @@ async def upload_track(track_location, message):
     os.remove(track_location)
 
 
-CMD_HELP.update(
-    {
-        "deezload": ">`.deez` <spotify/deezer link> <FORMAT>"
-        "\nUsage: Download music from deezer or spotify."
-        "\n\n *FORMAT= `FLAC`, `MP3_320`, `MP3_256`, `MP3_128`."
-    }
-)
+CMD_HELP.update({
+    "deezload":
+    ">`.deez` <spotify/deezer link> <FORMAT>"
+    "\nUsage: Download music from deezer or spotify."
+    "\n\n *FORMAT= `FLAC`, `MP3_320`, `MP3_256`, `MP3_128`."
+})
