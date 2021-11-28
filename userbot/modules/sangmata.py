@@ -40,9 +40,8 @@ async def lastname(steal):
                 await steal.client.delete_messages(conv.chat_id,
                                                    [msg.id, r.id, response.id])
                 return
-            else:
-                respond = await conv.get_response()
-                await steal.edit(f"{response.message}")
+            respond = await conv.get_response()
+            await steal.edit(f"{response.message}")
             await steal.client.delete_messages(
                 conv.chat_id, [msg.id, r.id, response.id, respond.id])
     except TimeoutError:

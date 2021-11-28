@@ -39,9 +39,8 @@ async def remove_notes(clr):
     notename = clr.pattern_match.group(1)
     if rm_note(clr.chat_id, notename) is False:
         return await clr.edit("`Couldn't find note:` **{}**".format(notename))
-    else:
-        return await clr.edit(
-            "`Successfully deleted note:` **{}**".format(notename))
+    return await clr.edit(
+        "`Successfully deleted note:` **{}**".format(notename))
 
 
 @register(outgoing=True, pattern=r"^.save (\w*)")
@@ -81,8 +80,7 @@ async def add_note(fltr):
     success = "`Note {} successfully. Use` #{} `to get it`"
     if add_note(str(fltr.chat_id), keyword, string, msg_id) is False:
         return await fltr.edit(success.format("updated", keyword))
-    else:
-        return await fltr.edit(success.format("added", keyword))
+    return await fltr.edit(success.format("added", keyword))
 
 
 @register(pattern=r"#\w*",
