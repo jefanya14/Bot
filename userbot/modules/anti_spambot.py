@@ -120,17 +120,14 @@ async def ANTI_SPAMBOTS(welcm):
                         reason = "Match on `bit.ly` URLs"
                         spambot = True
                     else:
-                        if (
-                            check_user.first_name in (
+                        if (check_user.first_name in (
                                 "Bitmex",
                                 "Promotion",
                                 "Information",
                                 "Dex",
                                 "Announcements",
                                 "Info",
-                        )
-                            and users.last_name == "Bot"
-                        ):
+                        ) and users.last_name == "Bot"):
                             reason = "Known spambot"
                             spambot = True
 

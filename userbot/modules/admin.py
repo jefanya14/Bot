@@ -698,19 +698,15 @@ async def _(event):
     try:
         async for x in bot.iter_participants(chat,
                                              filter=ChannelParticipantsAdmins):
-            if (
-                not x.deleted
-                and isinstance(x.participant, ChannelParticipantCreator)
-            ):
+            if not x.deleted and isinstance(x.participant,
+                                            ChannelParticipantCreator):
                 mentions += "\n 👑 [{}](tg://user?id={}) `{}`".format(
                     x.first_name, x.id, x.id)
         mentions += "\n"
         async for x in bot.iter_participants(chat,
                                              filter=ChannelParticipantsAdmins):
-            if (
-                not x.deleted
-                and isinstance(x.participant, ChannelParticipantAdmin)
-            ):
+            if not x.deleted and isinstance(x.participant,
+                                            ChannelParticipantAdmin):
                 mentions += "\n 🔰 [{}](tg://user?id={}) `{}`".format(
                     x.first_name, x.id, x.id)
 

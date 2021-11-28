@@ -129,11 +129,8 @@ async def mention_afk(mention):
     back_alivee = datetime.now()
     afk_end = back_alivee.replace(microsecond=0)
     afk_since = "a while ago"
-    if (
-        mention.message.mentioned
-        and not (await mention.get_sender()).bot
-        and ISAFK
-    ):
+    if mention.message.mentioned and not (await
+                                          mention.get_sender()).bot and ISAFK:
         now = datetime.now()
         datime_since_afk = now - afk_time  # pylint:disable=E0602
         time = float(datime_since_afk.seconds)
@@ -162,10 +159,9 @@ async def mention_afk(mention):
             afk_since = f"`{int(seconds)}s` ago"
         if mention.sender_id not in USERS:
             if AFKREASON:
-                await mention.reply(
-                    f"{str(choice(AFKSTR))}"
-                    f"\n\nI'm AFK right now since {afk_since}"
-                    f"\nReason: `{AFKREASON}`")
+                await mention.reply(f"{str(choice(AFKSTR))}"
+                                    f"\n\nI'm AFK right now since {afk_since}"
+                                    f"\nReason: `{AFKREASON}`")
             else:
                 await mention.reply(
                     f"Sorry, but [{user.first_name}](tg://user?id={user.id}) is AFK!"
@@ -174,10 +170,9 @@ async def mention_afk(mention):
             COUNT_MSG = COUNT_MSG + 1
         elif mention.sender_id in USERS:
             if AFKREASON:
-                await mention.reply(
-                    f"{str(choice(AFKSTR))}"
-                    f"\n\nI'm AFK right now since {afk_since}"
-                    f"\nReason: `{AFKREASON}`")
+                await mention.reply(f"{str(choice(AFKSTR))}"
+                                    f"\n\nI'm AFK right now since {afk_since}"
+                                    f"\nReason: `{AFKREASON}`")
             else:
                 await mention.reply(
                     f"Sorry, but [{user.first_name}](tg://user?id={user.id}) is AFK!"
