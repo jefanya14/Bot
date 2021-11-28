@@ -235,7 +235,7 @@ async def amireallyalive(alive):
         f"running on __{UPSTREAM_REPO_BRANCH}__ \n"
         "----------------------------------------\n"
         "`Bot Version Info` \n"
-        f"`CODENAME       : {CN} v{VER} `\n"
+        f"`CODENAME       : JefanyaBot v{VER} `\n"
         f"`Telethon       : v{version.__version__} `\n"
         f"`Python         : v{python_version()} `\n"
         "----------------------------------------\n"
