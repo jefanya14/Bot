@@ -4,7 +4,6 @@
 # you may not use this file except in compliance with the License.
 #
 
-
 from telethon import events
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 

@@ -1,7 +1,6 @@
 # Inspired by Saitama Bot, credits - @kirito6969, @PhycoNinja13b
 # Thx to @DeletedUser420
 
-
 from userbot import CMD_HELP
 from userbot.events import register
 

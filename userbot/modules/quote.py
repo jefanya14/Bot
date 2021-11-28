@@ -1,6 +1,5 @@
 # port to userbot by @MoveAngel
 
-
 from telethon import events
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 

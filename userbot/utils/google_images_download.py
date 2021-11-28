@@ -494,7 +494,8 @@ class googleimagesdownload:
         except Exception:
             print(
                 "Could not open URL. Please check your internet connection and/or ssl settings \n"
-                "If you are using proxy, make sure your proxy settings is configured correctly")
+                "If you are using proxy, make sure your proxy settings is configured correctly"
+            )
             sys.exit()
 
     # Download Page for more than 100 images
@@ -513,8 +514,7 @@ class googleimagesdownload:
             print(
                 "Looks like we cannot locate the path the 'chromedriver' (use the '--chromedriver' "
                 "argument to specify the path to the executable.) or google chrome browser is not "
-                "installed on your machine (exception: %s)" %
-                e)
+                "installed on your machine (exception: %s)" % e)
             sys.exit()
         browser.set_window_size(1024, 768)
 
@@ -671,8 +671,8 @@ class googleimagesdownload:
     def similar_images(similar_images):
         try:
             searchUrl = (
-                "https://www.google.com/searchbyimage?site=search&sa=X&image_url=" +
-                similar_images)
+                "https://www.google.com/searchbyimage?site=search&sa=X&image_url="
+                + similar_images)
             headers = {
                 "User-Agent":
                 "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36"
@@ -877,9 +877,9 @@ class googleimagesdownload:
             print(similar_images)
             keywordem = self.similar_images(similar_images)
             url = (
-                "https://www.google.com/search?q=" +
-                keywordem +
-                "&espv=2&biw=1366&bih=667&site=webhp&source=lnms&tbm=isch&sa=X&ei=XosDVaCXD8TasATItgE&ved=0CAcQ_AUoAg")
+                "https://www.google.com/search?q=" + keywordem +
+                "&espv=2&biw=1366&bih=667&site=webhp&source=lnms&tbm=isch&sa=X&ei=XosDVaCXD8TasATItgE&ved=0CAcQ_AUoAg"
+            )
         elif specific_site:
             url = ("https://www.google.com/search?q=" +
                    quote(search_term.encode("utf-8")) + "&as_sitesearch=" +
@@ -1365,12 +1365,10 @@ class googleimagesdownload:
                     time.sleep(int(arguments["delay"]))
             i += 1
         if count < limit:
-            print("\n\nUnfortunately all " +
-                  str(limit) +
-                  " could not be downloaded because some images were not downloadable. " +
-                  str(count -
-                      1) +
-                  " is all we got for this search filter!")
+            print(
+                "\n\nUnfortunately all " + str(limit) +
+                " could not be downloaded because some images were not downloadable. "
+                + str(count - 1) + " is all we got for this search filter!")
         return items, errorCount, abs_path
 
     # Bulk Download

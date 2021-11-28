@@ -108,8 +108,8 @@ async def fetch_info(chat, event):
                         and msg_info.users[0].username is not None else None)
     created = msg_info.messages[0].date if first_msg_valid else None
     former_title = (
-        msg_info.messages[0].action.title if first_msg_valid and
-        isinstance(msg_info.messages[0].action, MessageActionChannelMigrateFrom)
+        msg_info.messages[0].action.title if first_msg_valid and isinstance(
+            msg_info.messages[0].action, MessageActionChannelMigrateFrom)
         and msg_info.messages[0].action.title != chat_title else None)
     try:
         dc_id, _ = get_input_location(chat.full_chat.chat_photo)
