@@ -4,6 +4,7 @@
 # you may not use this file except in compliance with the License.
 #
 """ Userbot module for executing code and terminal commands from Telegram. """
+import ast
 
 import asyncio
 from os import remove
@@ -31,7 +32,7 @@ async def evaluate(query):
         return
 
     try:
-        evaluation = str(eval(expression))
+        evaluation = str(ast.literal_eval(expression))
         if evaluation:
             if isinstance(evaluation, str):
                 if len(evaluation) >= 4096:
