@@ -380,8 +380,8 @@ async def spider(spdr):
     if mute(spdr.chat_id, user.id) is False:
         return await spdr.edit("`Error! User probably already muted.`")
     try:
-        await spdr.client(
-            EditBannedRequest(spdr.chat_id, user.id, MUTE_RIGHTS))
+        await spdr.client(EditBannedRequest(spdr.chat_id, user.id,
+                                            MUTE_RIGHTS))
 
         # Announce that the function is done
         if reason:
