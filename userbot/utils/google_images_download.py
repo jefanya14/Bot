@@ -939,7 +939,7 @@ class googleimagesdownload:
                          specific_site, safe_search):
         # check the args and choose the URL
         if url:
-            url = url
+            pass
         elif similar_images:
             print(similar_images)
             keywordem = self.similar_images(similar_images)
