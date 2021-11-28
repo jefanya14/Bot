@@ -379,28 +379,27 @@ async def spider(spdr):
     await spdr.edit("`Gets a tape!`")
     if mute(spdr.chat_id, user.id) is False:
         return await spdr.edit("`Error! User probably already muted.`")
-    else:
-        try:
-            await spdr.client(
-                EditBannedRequest(spdr.chat_id, user.id, MUTE_RIGHTS))
+    try:
+        await spdr.client(
+            EditBannedRequest(spdr.chat_id, user.id, MUTE_RIGHTS))
 
-            # Announce that the function is done
-            if reason:
-                await spdr.edit(f"`Safely taped !!`\nReason: {reason}")
-            else:
-                await spdr.edit("`Safely taped !!`")
-                await sleep(3)
-                await spdr.delete()
-            # Announce to logging group
-            if BOTLOG:
-                await spdr.client.send_message(
-                    BOTLOG_CHATID,
-                    "#MUTE\n"
-                    f"USER: [{user.first_name}](tg://user?id={user.id})\n"
-                    f"CHAT: {spdr.chat.title}(`{spdr.chat_id}`)",
-                )
-        except UserIdInvalidError:
-            return await spdr.edit("`Uh oh my mute logic broke!`")
+        # Announce that the function is done
+        if reason:
+            await spdr.edit(f"`Safely taped !!`\nReason: {reason}")
+        else:
+            await spdr.edit("`Safely taped !!`")
+            await sleep(3)
+            await spdr.delete()
+        # Announce to logging group
+        if BOTLOG:
+            await spdr.client.send_message(
+                BOTLOG_CHATID,
+                "#MUTE\n"
+                f"USER: [{user.first_name}](tg://user?id={user.id})\n"
+                f"CHAT: {spdr.chat.title}(`{spdr.chat_id}`)",
+            )
+    except UserIdInvalidError:
+        return await spdr.edit("`Uh oh my mute logic broke!`")
 
 
 @register(outgoing=True, pattern="^.unmute(?: |$)(.*)")
@@ -436,25 +435,24 @@ async def unmoot(unmot):
 
     if unmute(unmot.chat_id, user.id) is False:
         return await unmot.edit("`Error! User probably already unmuted.`")
-    else:
 
-        try:
-            await unmot.client(
-                EditBannedRequest(unmot.chat_id, user.id, UNBAN_RIGHTS))
-            await unmot.edit("```Unmuted Successfully```")
-            await sleep(3)
-            await unmot.delete()
-        except UserIdInvalidError:
-            await unmot.edit("`Uh oh my unmute logic broke!`")
-            return
+    try:
+        await unmot.client(
+            EditBannedRequest(unmot.chat_id, user.id, UNBAN_RIGHTS))
+        await unmot.edit("```Unmuted Successfully```")
+        await sleep(3)
+        await unmot.delete()
+    except UserIdInvalidError:
+        await unmot.edit("`Uh oh my unmute logic broke!`")
+        return
 
-        if BOTLOG:
-            await unmot.client.send_message(
-                BOTLOG_CHATID,
-                "#UNMUTE\n"
-                f"USER: [{user.first_name}](tg://user?id={user.id})\n"
-                f"CHAT: {unmot.chat.title}(`{unmot.chat_id}`)",
-            )
+    if BOTLOG:
+        await unmot.client.send_message(
+            BOTLOG_CHATID,
+            "#UNMUTE\n"
+            f"USER: [{user.first_name}](tg://user?id={user.id})\n"
+            f"CHAT: {unmot.chat.title}(`{unmot.chat_id}`)",
+        )
 
 
 @register(incoming=True)

@@ -127,7 +127,7 @@ async def show_welcome(event):
     if not cws:
         await event.edit("`No welcome message saved here.`")
         return
-    elif cws.f_mesg_id:
+    if cws.f_mesg_id:
         msg_o = await event.client.get_messages(entity=BOTLOG_CHATID,
                                                 ids=int(cws.f_mesg_id))
         await event.edit(
