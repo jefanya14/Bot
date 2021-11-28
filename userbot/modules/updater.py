@@ -11,7 +11,6 @@ This module updates the userbot based on upstream revision
 from os import remove, execle, path, environ
 import asyncio
 import sys
-from os import environ, execle, remove
 
 from git import Repo
 from git.exc import GitCommandError, InvalidGitRepositoryError, NoSuchPathError

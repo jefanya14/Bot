@@ -35,8 +35,6 @@ import logging
 import userbot.modules.sql_helper.google_drive_sql as helper
  
 from bs4 import BeautifulSoup
-from os.path import isfile, isdir, join, getctime
-from mimetypes import guess_type
  
 from telethon import events
  
