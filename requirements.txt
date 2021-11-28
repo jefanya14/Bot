@@ -1,4 +1,5 @@
-aiohttp
+aiofile
+aiohttp[speedups]
 aria2p
 async_generator
 bs4
