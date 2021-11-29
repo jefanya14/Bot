@@ -1293,73 +1293,72 @@ class googleimagesdownload:
             if len(image_objects) == 0:
                 print("no_links")
                 break
+            # format the item for readability
+            obj = self.format_object(image_objects[i])
+            if arguments["metadata"] and not arguments["silent_mode"]:
+                print("\nImage Metadata: " + str(obj))
+
+            # download the images
+            (
+                download_status,
+                download_message,
+                return_image_name,
+                absolute_path,
+            ) = self.download_image(
+                obj["image_link"],
+                obj["image_format"],
+                main_directory,
+                dir_name,
+                count,
+                arguments["print_urls"],
+                arguments["socket_timeout"],
+                arguments["prefix"],
+                arguments["print_size"],
+                arguments["no_numbering"],
+                arguments["no_download"],
+                arguments["save_source"],
+                obj["image_source"],
+                arguments["silent_mode"],
+                arguments["thumbnail_only"],
+                arguments["format"],
+                arguments["ignore_urls"],
+            )
+            if not arguments["silent_mode"]:
+                print(download_message)
+            if download_status == "success":
+
+                # download image_thumbnails
+                if arguments["thumbnail"] or arguments["thumbnail_only"]:
+                    (
+                        download_status,
+                        download_message_thumbnail,
+                    ) = self.download_image_thumbnail(
+                        obj["image_thumbnail_url"],
+                        main_directory,
+                        dir_name,
+                        return_image_name,
+                        arguments["print_urls"],
+                        arguments["socket_timeout"],
+                        arguments["print_size"],
+                        arguments["no_download"],
+                        arguments["save_source"],
+                        obj["image_source"],
+                        arguments["ignore_urls"],
+                    )
+                    if not arguments["silent_mode"]:
+                        print(download_message_thumbnail)
+
+                count += 1
+                obj["image_filename"] = return_image_name
+                # Append all the links in the list named 'Links'
+                items.append(obj)
+                abs_path.append(absolute_path)
             else:
-                # format the item for readability
-                obj = self.format_object(image_objects[i])
-                if arguments["metadata"] and not arguments["silent_mode"]:
-                    print("\nImage Metadata: " + str(obj))
+                errorCount += 1
 
-                # download the images
-                (
-                    download_status,
-                    download_message,
-                    return_image_name,
-                    absolute_path,
-                ) = self.download_image(
-                    obj["image_link"],
-                    obj["image_format"],
-                    main_directory,
-                    dir_name,
-                    count,
-                    arguments["print_urls"],
-                    arguments["socket_timeout"],
-                    arguments["prefix"],
-                    arguments["print_size"],
-                    arguments["no_numbering"],
-                    arguments["no_download"],
-                    arguments["save_source"],
-                    obj["image_source"],
-                    arguments["silent_mode"],
-                    arguments["thumbnail_only"],
-                    arguments["format"],
-                    arguments["ignore_urls"],
-                )
-                if not arguments["silent_mode"]:
-                    print(download_message)
-                if download_status == "success":
-
-                    # download image_thumbnails
-                    if arguments["thumbnail"] or arguments["thumbnail_only"]:
-                        (
-                            download_status,
-                            download_message_thumbnail,
-                        ) = self.download_image_thumbnail(
-                            obj["image_thumbnail_url"],
-                            main_directory,
-                            dir_name,
-                            return_image_name,
-                            arguments["print_urls"],
-                            arguments["socket_timeout"],
-                            arguments["print_size"],
-                            arguments["no_download"],
-                            arguments["save_source"],
-                            obj["image_source"],
-                            arguments["ignore_urls"],
-                        )
-                        if not arguments["silent_mode"]:
-                            print(download_message_thumbnail)
-
-                    count += 1
-                    obj["image_filename"] = return_image_name
-                    # Append all the links in the list named 'Links'
-                    items.append(obj)
-                    abs_path.append(absolute_path)
-                else:
-                    errorCount += 1
-
-                # delay param
-                if arguments["delay"]:
-                    time.sleep(int(arguments["delay"]))
+            # delay param
+            if arguments["delay"]:
+                time.sleep(int(arguments["delay"]))
             i += 1
         if count < limit:
             print("\n\nUnfortunately all " +
