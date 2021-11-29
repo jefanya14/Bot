@@ -31,7 +31,7 @@ else:  # If the Current Version of Python is 2.x
 
     import httplib
     import urllib2
-    from httplib import BadStatusLine, IncompleteRead
+    from httplib import BadStatusLine
     from urllib2 import HTTPError, Request, URLError, urlopen
 
     httplib._MAXHEADERS = 1000
@@ -510,8 +510,7 @@ class googleimagesdownload:
             except Exception:
                 print(
                     "Could not open URL. Please check your internet connection and/or ssl settings \n"
-                    "If you are using proxy, make sure your proxy settings is configured correctly"
-                )
+                    "If you are using proxy, make sure your proxy settings is configured correctly")
                 sys.exit()
         else:  # If the Current Version of Python is 2.x
             try:
@@ -527,11 +526,10 @@ class googleimagesdownload:
                     context = ssl._create_unverified_context()
                     response = urlopen(req, context=context)
                 return response.read()
-            except:
+            except BaseException:
                 print(
                     "Could not open URL. Please check your internet connection and/or ssl settings \n"
-                    "If you are using proxy, make sure your proxy settings is configured correctly"
-                )
+                    "If you are using proxy, make sure your proxy settings is configured correctly")
                 sys.exit()
                 return "Page Not found"
 
@@ -554,7 +552,8 @@ class googleimagesdownload:
             print(
                 "Looks like we cannot locate the path the 'chromedriver' (use the '--chromedriver' "
                 "argument to specify the path to the executable.) or google chrome browser is not "
-                "installed on your machine (exception: %s)" % e)
+                "installed on your machine (exception: %s)" %
+                e)
             sys.exit()
         browser.set_window_size(1024, 768)
 
@@ -574,7 +573,7 @@ class googleimagesdownload:
             for _ in range(50):
                 element.send_keys(Keys.PAGE_DOWN)
                 time.sleep(0.3)  # bot id protection
-        except:
+        except BaseException:
             for _ in range(10):
                 element.send_keys(Keys.PAGE_DOWN)
                 time.sleep(0.3)  # bot id protection
@@ -643,11 +642,11 @@ class googleimagesdownload:
                 if len(item_name) > 100 or item_name == "background-color":
                     break
                 else:
-                    tabs[
-                        item_name] = item  # Append all the links in the list named 'Links'
-                    time.sleep(
-                        0.1
-                    )  # Timer could be used to slow down the request for image downloads
+                    # Append all the links in the list named 'Links'
+                    tabs[item_name] = item
+                    # Timer could be used to slow down the request for image
+                    # downloads
+                    time.sleep(0.1)
                     page = page[end_content:]
         return tabs
 
@@ -695,7 +694,9 @@ class googleimagesdownload:
         image_name = str(url[(url.rfind("/")) + 1:])
         if "?" in image_name:
             image_name = image_name[:image_name.find("?")]
-        # if ".jpg" in image_name or ".gif" in image_name or ".png" in image_name or ".bmp" in image_name or ".svg" in image_name or ".webp" in image_name or ".ico" in image_name:
+        # if ".jpg" in image_name or ".gif" in image_name or ".png" in
+        # image_name or ".bmp" in image_name or ".svg" in image_name or ".webp"
+        # in image_name or ".ico" in image_name:
         if any(map(lambda extension: extension in image_name, extensions)):
             file_name = main_directory + "/" + image_name
         else:
@@ -720,8 +721,8 @@ class googleimagesdownload:
         if cur_version >= version:  # If the Current Version of Python is 3.0 or above
             try:
                 searchUrl = (
-                    "https://www.google.com/searchbyimage?site=search&sa=X&image_url="
-                    + similar_images)
+                    "https://www.google.com/searchbyimage?site=search&sa=X&image_url=" +
+                    similar_images)
                 headers = {}
                 headers[
                     "User-Agent"] = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36"
@@ -741,13 +742,13 @@ class googleimagesdownload:
                 l4 = content.find(";", l3 + 19)
                 urll2 = content[l3 + 19:l4]
                 return urll2
-            except:
+            except BaseException:
                 return "Cloud not connect to Google Images endpoint"
         else:  # If the Current Version of Python is 2.x
             try:
                 searchUrl = (
-                    "https://www.google.com/searchbyimage?site=search&sa=X&image_url="
-                    + similar_images)
+                    "https://www.google.com/searchbyimage?site=search&sa=X&image_url=" +
+                    similar_images)
                 headers = {}
                 headers[
                     "User-Agent"] = "Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.27 Safari/537.17"
@@ -767,7 +768,7 @@ class googleimagesdownload:
                 l4 = content.find(";", l3 + 19)
                 urll2 = content[l3 + 19:l4]
                 return urll2
-            except:
+            except BaseException:
                 return "Cloud not connect to Google Images endpoint"
 
     # Building URL parameters
@@ -951,9 +952,9 @@ class googleimagesdownload:
             print(similar_images)
             keywordem = self.similar_images(similar_images)
             url = (
-                "https://www.google.com/search?q=" + keywordem +
-                "&espv=2&biw=1366&bih=667&site=webhp&source=lnms&tbm=isch&sa=X&ei=XosDVaCXD8TasATItgE&ved=0CAcQ_AUoAg"
-            )
+                "https://www.google.com/search?q=" +
+                keywordem +
+                "&espv=2&biw=1366&bih=667&site=webhp&source=lnms&tbm=isch&sa=X&ei=XosDVaCXD8TasATItgE&ved=0CAcQ_AUoAg")
         elif specific_site:
             url = ("https://www.google.com/search?q=" +
                    quote(search_term.encode("utf-8")) + "&as_sitesearch=" +
@@ -1242,7 +1243,8 @@ class googleimagesdownload:
                     return_image_name = ""
                     absolute_path = ""
 
-                # return image name back to calling method to use it for thumbnail downloads
+                # return image name back to calling method to use it for
+                # thumbnail downloads
                 download_status = "success"
                 download_message = ("Completed Image ====> " + prefix +
                                     str(count) + "." + image_name)
@@ -1327,12 +1329,12 @@ class googleimagesdownload:
                     object_decode = bytes(object_raw,
                                           "utf-8").decode("unicode_escape")
                     final_object = json.loads(object_decode)
-                except:
+                except BaseException:
                     final_object = ""
             else:  # python2
                 try:
                     final_object = json.loads(self.repair(object_raw))
-                except:
+                except BaseException:
                     final_object = ""
             return final_object, end_object
 
@@ -1428,10 +1430,12 @@ class googleimagesdownload:
                     time.sleep(int(arguments["delay"]))
             i += 1
         if count < limit:
-            print(
-                "\n\nUnfortunately all " + str(limit) +
-                " could not be downloaded because some images were not downloadable. "
-                + str(count - 1) + " is all we got for this search filter!")
+            print("\n\nUnfortunately all " +
+                  str(limit) +
+                  " could not be downloaded because some images were not downloadable. " +
+                  str(count -
+                      1) +
+                  " is all we got for this search filter!")
         return items, errorCount, abs_path
 
     # Bulk Download
@@ -1510,7 +1514,8 @@ class googleimagesdownload:
                 'Either "size" or "exact_size" should be used in a query. Both cannot be used at the same time.'
             )
 
-        # both image directory and no image directory should not be allowed in the same query
+        # both image directory and no image directory should not be allowed in
+        # the same query
         if arguments["image_directory"] and arguments["no_directory"]:
             raise ValueError(
                 "You can either specify image directory or specify no image directory, not both!"
@@ -1542,7 +1547,8 @@ class googleimagesdownload:
             current_time = str(datetime.datetime.now()).split(".")[0]
             search_keyword = [current_time.replace(":", "_")]
 
-        # If single_image or url argument not present then keywords is mandatory argument
+        # If single_image or url argument not present then keywords is
+        # mandatory argument
         if (arguments["single_image"] is None and arguments["url"] is None
                 and arguments["similar_images"] is None
                 and arguments["keywords"] is None
@@ -1695,9 +1701,9 @@ def main():
             total_errors += errors
 
         t1 = time.time()  # stop the timer
-        total_time = (
-            t1 - t0
-        )  # Calculating the total time required to crawl, find and download all the links of 60,000 images
+        # Calculating the total time required to crawl, find and download all
+        # the links of 60,000 images
+        total_time = (t1 - t0)
         if not arguments["silent_mode"]:
             print("\nEverything downloaded!")
             print("Total errors: " + str(total_errors))
