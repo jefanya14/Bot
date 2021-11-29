@@ -10,6 +10,7 @@ from sys import argv, exit
 
 from telethon.errors.rpcerrorlist import PhoneNumberInvalidError
 
+from userbot import LOGS, bot, BOTLOG_CHATID
 from userbot import CODENAME, LOGS, OUBnew_VER, bot
 from userbot.modules import ALL_MODULES
 
@@ -28,7 +29,7 @@ except PhoneNumberInvalidError:
 for module_name in ALL_MODULES:
     imported_module = import_module("userbot.modules." + module_name)
 
-LOGS.info(f"You are running OUBnew-ftzr {CODENAME} v{VER}.\n")
+LOGS.info(f"You are running Jefanya Bot {CODENAME} v{VER}.\n")
 
 LOGS.info("Congrats, your bot have successfully running\n"
           "To test your bot type .on or .live\n"

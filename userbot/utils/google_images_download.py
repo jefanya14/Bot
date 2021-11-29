@@ -494,10 +494,19 @@ class googleimagesdownload:
         except Exception:
             print(
                 "Could not open URL. Please check your internet connection and/or ssl settings \n"
+<<<<<<< Updated upstream
                 "If you are using proxy, make sure your proxy settings is configured correctly")
+=======
+<<<<<<< HEAD
+                  "If you are using proxy, make sure your proxy settings is configured correctly")
+=======
+                "If you are using proxy, make sure your proxy settings is configured correctly")
+>>>>>>> d2716d3dccf942baf697a5f433ccd69ad882fd09
+>>>>>>> Stashed changes
             sys.exit()
 
     # Download Page for more than 100 images
+    @@ -514,7 +513,8 @@ def download_extended_page(url, chromedriver):
     @staticmethod
     def download_extended_page(url, chromedriver):
         from selenium import webdriver
@@ -513,6 +522,13 @@ class googleimagesdownload:
             print(
                 "Looks like we cannot locate the path the 'chromedriver' (use the '--chromedriver' "
                 "argument to specify the path to the executable.) or google chrome browser is not "
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+                "installed on your machine (exception: %s)" % e)
+=======
+>>>>>>> d2716d3dccf942baf697a5f433ccd69ad882fd09
+>>>>>>> Stashed changes
                 "installed on your machine (exception: %s)" %
                 e)
             sys.exit()
