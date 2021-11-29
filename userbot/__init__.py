@@ -18,8 +18,6 @@ from sys import exit, version_info
 from platform import python_version
 
 
-
-
 from dotenv import load_dotenv
 from pylast import LastFMNetwork, md5
 from pySmartDL import SmartDL

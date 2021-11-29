@@ -494,41 +494,43 @@ class googleimagesdownload:
         except Exception:
             print(
                 "Could not open URL. Please check your internet connection and/or ssl settings \n"
-<<<<<<< Updated upstream
+<< << << < Updated upstream
                 "If you are using proxy, make sure your proxy settings is configured correctly")
-=======
-<<<<<<< HEAD
+
+
+== == == =
+<< << << < HEAD
                   "If you are using proxy, make sure your proxy settings is configured correctly")
-=======
+== == == =
                 "If you are using proxy, make sure your proxy settings is configured correctly")
->>>>>>> d2716d3dccf942baf697a5f433ccd69ad882fd09
->>>>>>> Stashed changes
+>> >>>> > d2716d3dccf942baf697a5f433ccd69ad882fd09
+>> >>>> > Stashed changes
             sys.exit()
 
     # Download Page for more than 100 images
-    @@ -514,7 +513,8 @@ def download_extended_page(url, chromedriver):
-    @staticmethod
+    @ @ -514, 7 + 513, 8 @ @ def download_extended_page(url, chromedriver):
+    @ staticmethod
     def download_extended_page(url, chromedriver):
         from selenium import webdriver
         from selenium.webdriver.common.keys import Keys
 
-        options = webdriver.ChromeOptions()
+        options=webdriver.ChromeOptions()
         options.add_argument("--no-sandbox")
         options.add_argument("--headless")
 
         try:
-            browser = webdriver.Chrome(chromedriver, chrome_options=options)
+            browser=webdriver.Chrome(chromedriver, chrome_options=options)
         except Exception as e:
             print(
                 "Looks like we cannot locate the path the 'chromedriver' (use the '--chromedriver' "
                 "argument to specify the path to the executable.) or google chrome browser is not "
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
+<< << << < Updated upstream
+== == == =
+<< << << < HEAD
                 "installed on your machine (exception: %s)" % e)
-=======
->>>>>>> d2716d3dccf942baf697a5f433ccd69ad882fd09
->>>>>>> Stashed changes
+== == == =
+>>>>>> > d2716d3dccf942baf697a5f433ccd69ad882fd09
+>> >>>> > Stashed changes
                 "installed on your machine (exception: %s)" %
                 e)
             sys.exit()
@@ -539,7 +541,7 @@ class googleimagesdownload:
         time.sleep(1)
         print("Getting you a lot of images. This may take a few moments...")
 
-        element = browser.find_element_by_tag_name("body")
+        element=browser.find_element_by_tag_name("body")
         # Scroll down
         for _ in range(30):
             element.send_keys(Keys.PAGE_DOWN)
@@ -558,7 +560,7 @@ class googleimagesdownload:
         print("Reached end of Page.")
         time.sleep(0.5)
 
-        source = browser.page_source  # page source
+        source=browser.page_source  # page source
         # close the browser
         browser.close()
 
@@ -566,68 +568,68 @@ class googleimagesdownload:
 
     # Correcting the escape characters for python2
 
-    @staticmethod
+    @ staticmethod
     def replace_with_byte(match):
         return chr(int(match.group(0)[1:], 8))
 
     def repair(self, brokenjson):
         # up to 3 digits for byte values up to FF
-        invalid_escape = re.compile(r"\\[0-7]{1,3}")
+        invalid_escape=re.compile(r"\\[0-7]{1,3}")
         return invalid_escape.sub(self.replace_with_byte, brokenjson)
 
     # Finding 'Next Image' from the given raw page
 
-    @staticmethod
+    @ staticmethod
     def get_next_tab(s):
-        start_line = s.find('class="dtviD"')
+        start_line=s.find('class="dtviD"')
         if start_line == -1:  # If no links are found then give an error!
-            end_quote = 0
-            link = "no_tabs"
+            end_quote=0
+            link="no_tabs"
             return link, "", end_quote
-        start_line = s.find('class="dtviD"')
-        start_content = s.find('href="', start_line + 1)
-        end_content = s.find('">', start_content + 1)
-        url_item = "https://www.google.com" + str(
+        start_line=s.find('class="dtviD"')
+        start_content=s.find('href="', start_line + 1)
+        end_content=s.find('">', start_content + 1)
+        url_item="https://www.google.com" + str(
             s[start_content + 6:end_content])
-        url_item = url_item.replace("&amp;", "&")
-        start_line_2 = s.find('class="dtviD"')
-        s = s.replace("&amp;", "&")
-        start_content_2 = s.find(":", start_line_2 + 1)
-        end_content_2 = s.find("&usg=", start_content_2 + 1)
-        url_item_name = str(s[start_content_2 + 1:end_content_2])
-        chars = url_item_name.find(",g_1:")
-        chars_end = url_item_name.find(":", chars + 6)
+        url_item=url_item.replace("&amp;", "&")
+        start_line_2=s.find('class="dtviD"')
+        s=s.replace("&amp;", "&")
+        start_content_2=s.find(":", start_line_2 + 1)
+        end_content_2=s.find("&usg=", start_content_2 + 1)
+        url_item_name=str(s[start_content_2 + 1:end_content_2])
+        chars=url_item_name.find(",g_1:")
+        chars_end=url_item_name.find(":", chars + 6)
         if chars_end == -1:
-            updated_item_name = (url_item_name[chars + 5:]).replace("+", " ")
+            updated_item_name=(url_item_name[chars + 5:]).replace("+", " ")
         else:
-            updated_item_name = (url_item_name[chars + 5:chars_end]).replace(
+            updated_item_name=(url_item_name[chars + 5:chars_end]).replace(
                 "+", " ")
         return url_item, updated_item_name, end_content
 
     # Getting all links with the help of '_images_get_next_image'
 
     def get_all_tabs(self, page):
-        tabs = {}
+        tabs={}
         while True:
-            item, item_name, end_content = self.get_next_tab(page)
+            item, item_name, end_content=self.get_next_tab(page)
             if item == "no_tabs":
                 break
             if len(item_name) > 100 or item_name == "background-color":
                 break
             # Append all the links in the list named 'Links'
-            tabs[item_name] = item
+            tabs[item_name]=item
             # Timer could be used to slow down the request for image
             # downloads
             time.sleep(0.1)
-            page = page[end_content:]
+            page=page[end_content:]
         return tabs
 
     # Format the object in readable format
-    @staticmethod
+    @ staticmethod
     def format_object(obj):
-        data = obj[1]
-        main = data[3]
-        info = data[9]
+        data=obj[1]
+        main=data[3]
+        info=data[9]
         return {
             "image_height": main[2],
             "image_width": main[1],
@@ -641,17 +643,17 @@ class googleimagesdownload:
         }
 
     # function to download single image
-    @staticmethod
+    @ staticmethod
     def single_image(image_url):
-        main_directory = "downloads"
-        extensions = (".jpg", ".gif", ".png", ".bmp", ".svg", ".webp", ".ico")
-        url = image_url
+        main_directory="downloads"
+        extensions=(".jpg", ".gif", ".png", ".bmp", ".svg", ".webp", ".ico")
+        url=image_url
         try:
             os.makedirs(main_directory)
         except OSError as e:
             if e.errno != 17:
                 raise
-        req = Request(
+        req=Request(
             url,
             headers={
                 "User-Agent":
@@ -659,21 +661,21 @@ class googleimagesdownload:
             },
         )
 
-        response = urlopen(req, None, 10)
-        data = response.read()
+        response=urlopen(req, None, 10)
+        data=response.read()
         response.close()
 
-        image_name = str(url[(url.rfind("/")) + 1:])
+        image_name=str(url[(url.rfind("/")) + 1:])
         if "?" in image_name:
-            image_name = image_name[:image_name.find("?")]
+            image_name=image_name[:image_name.find("?")]
         # if ".jpg" in image_name or ".gif" in image_name or ".png" in
         # image_name or ".bmp" in image_name or ".svg" in image_name or ".webp"
         # in image_name or ".ico" in image_name:
         if any(map(lambda extension: extension in image_name, extensions)):
-            file_name = main_directory + "/" + image_name
+            file_name=main_directory + "/" + image_name
         else:
-            file_name = main_directory + "/" + image_name + ".jpg"
-            image_name = image_name + ".jpg"
+            file_name=main_directory + "/" + image_name + ".jpg"
+            image_name=image_name + ".jpg"
 
         try:
             with open(file_name, "wb") as output_file:
@@ -683,40 +685,40 @@ class googleimagesdownload:
         print("completed ====> " +
               image_name.encode("raw_unicode_escape").decode("utf-8"))
 
-    @staticmethod
+    @ staticmethod
     def similar_images(similar_images):
         try:
-            searchUrl = (
+            searchUrl=(
                 "https://www.google.com/searchbyimage?site=search&sa=X&image_url=" +
                 similar_images)
-            headers = {
+            headers={
                 "User-Agent":
                 "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36"
             }
 
-            req1 = urllib.request.Request(searchUrl, headers=headers)
-            resp1 = urllib.request.urlopen(req1)
-            content = str(resp1.read())
-            l1 = content.find("AMhZZ")
-            l2 = content.find("&", l1)
-            urll = content[l1:l2]
+            req1=urllib.request.Request(searchUrl, headers=headers)
+            resp1=urllib.request.urlopen(req1)
+            content=str(resp1.read())
+            l1=content.find("AMhZZ")
+            l2=content.find("&", l1)
+            urll=content[l1:l2]
 
-            newurl = ("https://www.google.com/search?tbs=sbi:" + urll +
+            newurl=("https://www.google.com/search?tbs=sbi:" + urll +
                       "&site=search&sa=X")
-            req2 = urllib.request.Request(newurl, headers=headers)
+            req2=urllib.request.Request(newurl, headers=headers)
             urllib.request.urlopen(req2)
-            l3 = content.find("/search?sa=X&amp;q=")
-            l4 = content.find(";", l3 + 19)
+            l3=content.find("/search?sa=X&amp;q=")
+            l4=content.find(";", l3 + 19)
             return content[l3 + 19:l4]
         except BaseException:
             return "Cloud not connect to Google Images endpoint"
 
     # Building URL parameters
-    @staticmethod
+    @ staticmethod
     def build_url_parameters(arguments):
         if arguments["language"]:
-            lang = "&lr="
-            lang_param = {
+            lang="&lr="
+            lang_param={
                 "Arabic": "lang_ar",
                 "Chinese (Simplified)": "lang_zh-CN",
                 "Chinese (Traditional)": "lang_zh-TW",
@@ -746,30 +748,30 @@ class googleimagesdownload:
                 "Swedish": "lang_sv",
                 "Turkish": "lang_tr",
             }
-            lang_url = lang + lang_param[arguments["language"]]
+            lang_url=lang + lang_param[arguments["language"]]
         else:
-            lang_url = ""
+            lang_url=""
 
         if arguments["time_range"]:
-            json_acceptable_string = arguments["time_range"].replace("'", '"')
-            d = json.loads(json_acceptable_string)
-            time_range = ",cdr:1,cd_min:" + d["time_min"] + ",cd_max:" + d[
+            json_acceptable_string=arguments["time_range"].replace("'", '"')
+            d=json.loads(json_acceptable_string)
+            time_range=",cdr:1,cd_min:" + d["time_min"] + ",cd_max:" + d[
                 "time_max"]
         else:
-            time_range = ""
+            time_range=""
 
         if arguments["exact_size"]:
-            size_array = [
+            size_array=[
                 x.strip() for x in arguments["exact_size"].split(",")
             ]
-            exact_size = (",isz:ex,iszw:" + str(size_array[0]) + ",iszh:" +
+            exact_size=(",isz:ex,iszw:" + str(size_array[0]) + ",iszh:" +
                           str(size_array[1]))
         else:
-            exact_size = ""
+            exact_size=""
 
-        built_url = "&tbs="
-        counter = 0
-        params = {
+        built_url="&tbs="
+        counter=0
+        params={
             "color": [
                 arguments["color"],
                 {
