@@ -10,8 +10,7 @@ from sys import argv, exit
 
 from telethon.errors.rpcerrorlist import PhoneNumberInvalidError
 
-from userbot import LOGS, bot
-from userbot import CODENAME, OUBnew_VER, 
+from userbot import CODENAME, LOGS, OUBnew_VER, bot
 from userbot.modules import ALL_MODULES
 
 VER = str(OUBnew_VER)
