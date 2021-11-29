@@ -20,7 +20,7 @@ from requests import get
 from telethon import TelegramClient, version
 from telethon.network.connection.tcpabridged import ConnectionTcpAbridged
 from telethon.sessions import StringSession
-from telethon.sync import TelegramClient, custom, events
+from telethon.sync import custom, events
 
 load_dotenv("config.env")
 
