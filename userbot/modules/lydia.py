@@ -61,7 +61,6 @@ async def addcf(event):
     reply_msg = await event.get_reply_message()
     if reply_msg:
         session = lydia.create_session()
-        session.id
         if reply_msg.from_id is None:
             return await event.edit("Invalid user type.")
         ACC_LYDIA.update({(event.chat_id & reply_msg.from_id): session})
@@ -96,7 +95,6 @@ async def remcf(event):
 
 @register(incoming=True, disable_edited=True)
 async def user(event):
-    event.text
     try:
         session = ACC_LYDIA[event.chat_id & event.from_id]
         async with event.client.action(event.chat_id, "typing"):
