@@ -140,7 +140,7 @@ async def typewriter(typew):
 async def typewriter(typew):
     typew.pattern_match.group(0)
     sleep(0)
-    await typew.edit("`Maaf baru online, ada apa bos?` \n#SenturyBot")
+    await typew.edit("`Maaf baru online, ada apa bos?`")
 
     # Create by myself @jefanya14
 
