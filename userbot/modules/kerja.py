@@ -9,7 +9,8 @@ async def typewriter(typew):
     typew.pattern_match.group(0)
     sleep(0)
     await typew.edit(
-        "Welcome, we apologize in advance. The main rule here is "don't sell anything to people outside the country of Indonesia". But if you still want to buy it, so please obey the rules, don't spam, don't ask too many questions either. and understand first before buying, because here it does not provide ways to use or spread phishing websites")
+        "Welcome, we apologize in advance. The main rule here is ^don't sell anything to people outside the country of Indonesia^\n"
+        f"But if you still want to buy it, so please obey the rules, don't spam, don't ask too many questions either. and understand first before buying, because here it does not provide ways to use or spread phishing websites")
 
 
 @register(outgoing=True, pattern="^.unredflag(?: |$)(.*)")
