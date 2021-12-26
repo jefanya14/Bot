@@ -3,6 +3,12 @@ from time import sleep
 from userbot import CMD_HELP
 from userbot.events import register
 
+@register(outgoing=True, pattern="^.india(?: |$)(.*)")
+async def typewriter(typew):
+    typew.pattern_match.group(0)
+    sleep(0)
+    await typew.edit(
+        "Welcome, we apologize in advance. The main rule here is "don't sell anything to people outside the country of Indonesia". But if you still want to buy it, so please obey the rules, don't spam, don't ask too many questions either. and understand first before buying, because here it does not provide ways to use or spread phishing websites")
 
 @register(outgoing=True, pattern="^.unredflag(?: |$)(.*)")
 async def typewriter(typew):
@@ -10,8 +16,7 @@ async def typewriter(typew):
     sleep(0)
     await typew.edit(
         "UNTUK DI INGAT SAJA\nBUAT YANG BLM TAU BERAPA LAMA PROSES UNREDFLAG ."
-        f"\n\nBIASANYA PALING CEPAT ADALAH 1 MALAM DAN PALING LAMA ADALAH 1 - 3 HARI\nTHANKS ~"
-    )
+        f"\n\nBIASANYA PALING CEPAT ADALAH 1 MALAM DAN PALING LAMA ADALAH 1 - 3 HARI\nTHANKS ~")
 
 
 @register(outgoing=True, pattern="^.1(?: |$)(.*)")
