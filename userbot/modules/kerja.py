@@ -46,7 +46,7 @@ async def typewriter(typew):
     sleep(0)
     await typew.edit(
         "Website Phising telah dibuat\n\n"
-        f"Garansi : Full\n"
+        f"Garansi : Full (1 Bulan)\n"
         f"Note : `Garansi tidak akan habis sebelum durasi website telah habis, dan ketika durasi di perpanjang maka garansi akan ikut diperpanjang`\n"
         f"Usahakan untuk komplain / menggunakan garansi maka sertakan ORDER ID\n"
         f"Order ID ada di data phising, dan itu sangatlah berguna")
@@ -112,7 +112,7 @@ async def typewriter(typew):
         f"\n\n`Send email lancar\nada SSL atau gembok ijo\nBisa request tampilan\nDan masih banyak lagi!!`\n\nHarga?\n\nDomain : Rp. 100.000 `Bisa Request Nama Web`\n"
         f"Domain : Rp. 50.000 `Tidak bisa request nama web alias yang nentuin penjual`\n"
         f"Subdomain : Rp. 25.000 `Tidak bisa request apapun kecuali request tampilan website`\n\n"
-        f"Payment via : DANA, OVO, BCA, BNI, QRIS\n"
+        f"Payment via : DANA, OVO, BCA, BNI, QRIS, GOPAY, PAYPAL\n"
         f"Mau lihat tampilan web ? Yuk ke demo [KLIK DISINI](https://jefanya.store) \n"
         f"Chat ? [Jefanya Efandchris](http://t.me/jefanya14)\n"
         f"Join channel telegram yuk! [klik disini](http://t.me/jejakcheat14)")
@@ -255,12 +255,22 @@ async def typewriter(typew):
 
 # Create by myself @jefanya14
 CMD_HELP.update({
-    "done":
+    "kerja":
+    "`.harga` = Mengirim list harga website\n"
     "`.trx` = Sedang melakukan Transaksi\n"
     "`.untrx` = Telah melakukan Transaksi\n"
     "`.exp` = Memberi message kalau web phising sudah EXP\n"
     "`.1` = Untuk meminta Email dan Tampilan\n"
     "`.2` = Untuk menandai transaksi sedang di proses\n"
     "`.3` = Menandai Transaksi telah selesai\n"
-    "`.dana` = Untuk mengirim dana\n"
+    "`.dana` = Untuk mengirim nomor dana\n"
+    "`.ovo` = Untuk mengirim nomor ovo\n"
+    "`.bca` = Untuk mengirim nomor bca\n"
+    "`.bni` = Untuk mengirim nomor bni\n"
+    "`.gopay` = Untuk mengirim nomor gopay\n"
+    "`.qris` = Untuk mengirim qris\n"
+    "`.paypal` = Untuk mengirim link pembayaran paypal\n"
+    "`.data` = Untuk meminta data website kepada buyyer\n"
+
+
 })
