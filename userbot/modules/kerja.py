@@ -229,7 +229,7 @@ async def typewriter(typew):
     typew.pattern_match.group(0)
     sleep(0)
     await typew.edit(
-        "`UPDATE HARGA HARI INI` \n\nDOMAIN : 100.000 (Bisa Request Nama Web)\nDOMAIN : 50.000 (Tidak bisa request nama web) \nSUBDOMAIN : 25.000 \n\nGaransi Full\nMendapatkan Akses cPanel ~DOMAIN~\nRedflag Akan Dibenerin\n Durasi 1 BULAN\n\n\nBot By : [#JefanyaBot](t.me/jefanya14)"
+        "`UPDATE HARGA HARI INI` \n\nDOMAIN : 130.000 (Bisa Request Nama Web)\nDOMAIN : 50.000 (Tidak bisa request nama web) \nSUBDOMAIN : 25.000 \n\nGaransi Full\nMendapatkan Akses cPanel ~DOMAIN~\nRedflag Akan Dibenerin\n Durasi 1 BULAN\n\n\nBot By : [#JefanyaBot](t.me/jefanya14)"
     )
 
 
